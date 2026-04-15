@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.2](https://github.com/www-zaq-ai/zaq/compare/v0.7.1...v0.7.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* **assets:** fix ontology_tree hook ([a501646](https://github.com/www-zaq-ai/zaq/commit/a501646c4dc04a3d58609c220472fc67f87de2ab))
+* **bo-metrics:** add negative feedback charts and reorder layout ([d38ad1d](https://github.com/www-zaq-ai/zaq/commit/d38ad1df1923f7d97102137087fcad0803cd161d))
+* **ingestion:** use tmp dir for pipeline images and fix preview colspan ([3b0df61](https://github.com/www-zaq-ai/zaq/commit/3b0df61c4a6646b92706057ff297a6f8d6d9ed83))
+* **logprobs:** adjust logprobs extraction on newest langchain deps ([e09d21e](https://github.com/www-zaq-ai/zaq/commit/e09d21e16d3119ec7a824bbc34635d6253f71d15))
+* **telemetry:** align cursor docs and centralize feedback reasons ([a9a15b8](https://github.com/www-zaq-ai/zaq/commit/a9a15b8b76af21b818baf937a10733f0eaa6d3da))
+* **telemetry:** process rollups by point cursor ([d8209f1](https://github.com/www-zaq-ai/zaq/commit/d8209f1f84c43d1c1c1c4767c56be0220f86a233))
+* **telemetry:** rebuild feedback metrics by message time ([09584fb](https://github.com/www-zaq-ai/zaq/commit/09584fbb0acb17c1bf1893d35b7f35d8694ca079))
+* **telemetry:** repair qa message/no-answer parity and rollup rebuild ([6cab13c](https://github.com/www-zaq-ai/zaq/commit/6cab13c8efa13105802be4391202e2a8ca91249c))
+
 ## [0.7.1](https://github.com/www-zaq-ai/zaq/compare/v0.7.0...v0.7.1) (2026-04-11)
 
 
