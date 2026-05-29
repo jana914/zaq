@@ -10,14 +10,17 @@ module.exports = async () => {
   // globalSetup runs before webServer starts. Poll until the dev server is ready.
   const pollCtx = await request.newContext({ baseURL: BASE_URL });
   let serverReady = false;
-  for (let i = 0; i < 45; i++) {
-    try {
-      const res = await pollCtx.get("/storybook");
-      if (res.ok()) { serverReady = true; break; }
-    } catch (_) {}
-    await new Promise((r) => setTimeout(r, 2_000));
+  try {
+    for (let i = 0; i < 45; i++) {
+      try {
+        const res = await pollCtx.get("/storybook");
+        if (res.ok()) { serverReady = true; break; }
+      } catch (_) {}
+      if (i < 44) await new Promise((r) => setTimeout(r, 2_000));
+    }
+  } finally {
+    await pollCtx.dispose();
   }
-  await pollCtx.dispose();
   if (!serverReady) {
     throw new Error(`Dev server at ${BASE_URL}/storybook did not become ready in 90s.`);
   }
