@@ -1,4 +1,4 @@
-defmodule Storybook.Components.SearchableSelect do
+defmodule Storybook.Components.Pickers.SearchableSelect do
   use PhoenixStorybook.Story, :page
 
   def description, do: "Dropdown with search filtering. Supports static options and allow-create."
