@@ -3,4 +3,7 @@ defmodule Storybook.Foundations do
 
   def folder_name, do: "Foundation"
   def folder_index, do: 0
+
+  def entry("fonts_deprecated"),
+    do: [name: "Fonts deprecated ⚠"]
 end

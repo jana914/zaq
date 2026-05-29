@@ -1,6 +1,6 @@
 defmodule Storybook.LegacyUi do
   use PhoenixStorybook.Index
 
-  def folder_name, do: "Legacy UI"
-  def folder_index, do: 3
+  def folder_name, do: "Legacy UI (deprecated)"
+  def folder_index, do: 5
 end

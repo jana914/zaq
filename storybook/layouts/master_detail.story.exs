@@ -1,4 +1,4 @@
-defmodule Storybook.Components.MasterDetailLayout do
+defmodule Storybook.Layouts.MasterDetail do
   use PhoenixStorybook.Story, :page
 
   def description, do: "Responsive split-view layout: master list on the left, detail panel on the right."

@@ -2,7 +2,7 @@ defmodule Storybook.Semantic.Colors do
   use PhoenixStorybook.Story, :page
 
   def description,
-    do: "ZAQ semantic color tokens — border and surface aliases mapping foundations palette to roles."
+    do: "ZAQ semantic color tokens — surface, border, and text/body aliases mapping foundations palette to roles."
 
   def render(assigns) do
     ~H"""
@@ -20,7 +20,7 @@ defmodule Storybook.Semantic.Colors do
         </div>
       </section>
 
-    <section>
+      <section>
         <h2 style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.45; margin-bottom: 1rem;">
           Border
         </h2>
@@ -29,6 +29,18 @@ defmodule Storybook.Semantic.Colors do
           <.swatch name="border/strong" var="--color-border-strong" border />
           <.swatch name="border/accent" var="--color-border-accent" border />
           <.swatch name="border/error" var="--color-border-error" />
+        </div>
+      </section>
+
+      <section>
+        <h2 style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.45; margin-bottom: 1rem;">
+          Text
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+          <.swatch name="text/body/default"   var="--color-text-body-default" />
+          <.swatch name="text/body/secondary" var="--color-text-body-secondary" />
+          <.swatch name="text/body/tertiary"  var="--color-text-body-tertiary" />
+          <.swatch name="text/body/invert"    var="--color-text-body-invert" border />
         </div>
       </section>
     </div>

@@ -1,4 +1,4 @@
-defmodule Storybook.LegacyUi.Header do
+defmodule Storybook.Components.Misc.Header do
   use PhoenixStorybook.Story, :component
 
   def function, do: &ZaqWeb.CoreComponents.header/1

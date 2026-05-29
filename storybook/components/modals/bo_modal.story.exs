@@ -1,4 +1,4 @@
-defmodule Storybook.Components.BoModal do
+defmodule Storybook.Components.Modals.BoModal do
   use PhoenixStorybook.Story, :component
 
   def function, do: &ZaqWeb.Components.BOModal.confirm_dialog/1

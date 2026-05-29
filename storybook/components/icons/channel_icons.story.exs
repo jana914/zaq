@@ -1,4 +1,4 @@
-defmodule Storybook.Components.ChannelIcons do
+defmodule Storybook.Components.Icons.ChannelIcons do
   use PhoenixStorybook.Story, :page
 
   def description, do: "Channel provider icons — one for each supported integration."

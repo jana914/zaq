@@ -1,4 +1,4 @@
-defmodule Storybook.LegacyUi.Table do
+defmodule Storybook.Components.Data.Table do
   use PhoenixStorybook.Story, :component
 
   def function, do: &ZaqWeb.CoreComponents.table/1
