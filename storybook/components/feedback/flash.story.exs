@@ -1,4 +1,4 @@
-defmodule Storybook.LegacyUi.Flash do
+defmodule Storybook.Components.Feedback.Flash do
   use PhoenixStorybook.Story, :component
 
   def function, do: &ZaqWeb.CoreComponents.flash/1

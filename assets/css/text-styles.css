@@ -85,7 +85,7 @@
   font-family:    var(--font-family-code);
   font-size:      var(--scale-12);
   font-weight:    var(--font-weight-regular);
-  line-height:    normal;
+  line-height:    var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-default);
 }
 

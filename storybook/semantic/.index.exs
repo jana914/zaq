@@ -6,4 +6,7 @@ defmodule Storybook.Semantic do
 
   def entry("text_styles_deprecated"),
     do: [name: "Text Styles deprecated ⚠"]
+
+  def entry("colors_deprecated"),
+    do: [name: "Colors deprecated ⚠"]
 end
