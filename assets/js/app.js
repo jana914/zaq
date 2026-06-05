@@ -517,6 +517,26 @@ topbar.config({barColors: {0: topbarAccent}, shadowColor: "rgba(0, 0, 0, .3)"})
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
 window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
+// Storybook dark mode bridge
+// Translates Storybook's psb-set-color-mode toggle into the app's data-theme attribute,
+// so ZAQ foundation tokens respond correctly when using Storybook's light/dark toggle.
+;(() => {
+  const applyPsbTheme = (mode) => {
+    const actual = (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) || mode === "dark"
+      ? "dark" : null
+    if (actual) {
+      document.documentElement.setAttribute("data-theme", actual)
+    } else {
+      document.documentElement.removeAttribute("data-theme")
+    }
+  }
+  // Sync on load from Storybook's localStorage key
+  const stored = localStorage.getItem("psb_selected_color_mode")
+  if (stored) applyPsbTheme(stored)
+  // Sync on toggle
+  window.addEventListener("psb-set-color-mode", (e) => applyPsbTheme(e.detail?.mode || "system"))
+})()
+
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 

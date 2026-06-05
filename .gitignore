@@ -54,6 +54,7 @@ npm-debug.log
 context.md
 
 config/dev.secret.exs
+config/test.secret.exs
 .claude/settings.local.json
 
 .env

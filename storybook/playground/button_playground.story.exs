@@ -25,24 +25,6 @@ defmodule Storybook.Playground.ButtonPlayground do
         <.hint>Hover state is :hover CSS pseudo-class — visible in the browser on mouse-over.</.hint>
       </section>
 
-      <section>
-        <.section_label>Side by side</.section_label>
-        <.row>
-          <button class="zaq-btn zaq-btn-primary zaq-btn-text_label-default">Primary</button>
-          <button class="zaq-btn zaq-btn-secondary zaq-btn-text_label-default">Secondary</button>
-        </.row>
-      </section>
-
-      <section>
-        <.section_label>On dark background</.section_label>
-        <div style="background: var(--zaq-surface-color-dark); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-          <button class="zaq-btn zaq-btn-primary zaq-btn-text_label-default">Primary</button>
-          <button class="zaq-btn zaq-btn-secondary zaq-btn-text_label-default">Secondary</button>
-          <button class="zaq-btn zaq-btn-primary zaq-btn-text_label-default" disabled>Disabled</button>
-          <button class="zaq-btn zaq-btn-secondary zaq-btn-text_label-default" disabled>Disabled</button>
-        </div>
-      </section>
-
     </div>
     """
   end

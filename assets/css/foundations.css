@@ -82,9 +82,7 @@
 }
 
 /* ── Dark palette ────────────────────────────────────────────────────────── */
-/* .dark mirrors [data-theme="dark"] for Storybook sandbox compatibility */
-[data-theme="dark"],
-.dark {
+[data-theme="dark"] {
   --zaq-color-blue-400:    #0aadca;
   --zaq-color-blue-300:    #3dd5ee;
   --zaq-color-blue-200:    #083d52;

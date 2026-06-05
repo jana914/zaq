@@ -39,13 +39,13 @@
   --zaq-btn-secondary-thickness-border-resting: var(--zaq-scale-1);
 
   /* btn/secondary/color/border */
-  --zaq-btn-secondary-color-border-resting:  var(--zaq-color-black-100);
+  --zaq-btn-secondary-color-border-resting:  var(--zaq-color-neutral-300);
   --zaq-btn-secondary-color-border-hover:    var(--zaq-color-blue-300);
   --zaq-btn-secondary-color-border-disabled: var(--zaq-color-neutral-300);
 
   /* btn/secondary/color/text */
-  --zaq-btn-secondary-color-text-resting:  var(--zaq-color-black-400);
-  --zaq-btn-secondary-color-text-hover:    var(--zaq-color-black-200);
+  --zaq-btn-secondary-color-text-resting:  var(--zaq-color-black-200);
+  --zaq-btn-secondary-color-text-hover:    var(--zaq-color-black-300);
   --zaq-btn-secondary-color-text-disabled: var(--zaq-color-black-100);
 
   /* btn/secondary/color/icon */
