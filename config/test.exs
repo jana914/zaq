@@ -92,3 +92,5 @@ if e2e? do
   config :zaq, Zaq.Ingestion, base_path: "tmp/e2e_documents"
   config :zaq, e2e_routes: true
 end
+
+if File.exists?("config/test.secret.exs"), do: import_config("test.secret.exs")
