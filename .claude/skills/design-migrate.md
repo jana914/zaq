@@ -1,6 +1,6 @@
 ---
 name: design-migrate
-description: Migrate ZAQ component or page styling to the --zaq-* token system. Accepts a Figma frame URL (design-led), a file path (audit), or --audit-all (full sweep). Always produces a diff proposal before touching any file.
+description: Migrate ZAQ component or page styling to the --zaq-* token system. Accepts a Figma frame URL (design-led), a file path (audit), or --audit-all (full sweep). Always produces a diff proposal before modifying app templates. Full sweep mode writes a backlog file directly.
 trigger: when the user types /design-migrate
 ---
 
@@ -19,6 +19,7 @@ Parse the input after `/design-migrate`:
 | Input | Mode |
 |---|---|
 | A `figma.com` URL | Design-led mode |
+| A `figma.com` URL + a file path (e.g. `/design-migrate https://figma.com/... lib/zaq_web/components/bo_layout.ex`) | Design-led mode, target file known |
 | A file path or component name | Audit mode |
 | `--audit-all` | Full codebase sweep |
 | Nothing | Ask: "Provide a Figma frame URL, a file path, or `--audit-all` for a full sweep." |
@@ -28,22 +29,25 @@ Parse the input after `/design-migrate`:
 ## Step 2: Read Inputs
 
 **Design-led mode:**
-1. Fetch the Figma frame: `mcp__plugin_figma_figma__get_design_context` with the provided URL
-2. Ask the user: "Which file should this frame be applied to?" if not already provided
-3. Read the target file
+1. Fetch the Figma frame: `mcp__plugin_figma_figma__get_design_context` with the provided URL.
+   - If the call fails (permission error, token not configured, etc.), say: "Could not access the Figma frame. Check that the file is shared and your Figma MCP token is configured. Falling back to audit mode." Then proceed as audit mode using the target file path.
+2. If no file path was provided alongside the URL, ask: "Which file should this frame be applied to?"
+3. Read the target file.
 
 **Audit mode:**
-1. Read the target file directly
-2. No Figma frame needed
+1. Read the target file directly.
+2. No Figma frame needed.
 
 **Full sweep (`--audit-all`):**
-- Skip to the Full Sweep section below
+- Skip to the Full Sweep section below.
 
 ---
 
 ## Step 3: Produce Diff Proposal (DO NOT touch any file yet)
 
-Analyse every style in the target file against the invariant rules below. Produce a complete diff proposal in this exact format:
+Apply the **Invariant Rules** (see bottom of this file) to determine the correct replacement for each style. Use the class-first lookup in Rule 1 before falling back to semantic vars.
+
+Analyse every style in the target file and produce a complete diff proposal in this exact format:
 
 ```
 <file>:<line>  <current-value>              → <proposed-replacement>        (<reason>)
@@ -63,13 +67,13 @@ Mark ambiguous text scale choices with `(⚠ ambiguous — override if needed)`.
 
 Present the full diff. Then ask: "Approve all, or list line numbers to reject/override."
 
-**Wait for user response before proceeding.**
+**Wait for user response before proceeding. Do not touch any file.**
 
 ---
 
-## Step 4: Apply Approved Changes — CSS and Storybook Only
+## Step 4: Stage in CSS and Storybook Only (DO NOT modify the app template yet)
 
-Apply only the lines the user approved. Touch two things only:
+Apply only the lines the user approved. Touch **two things only** — not the app template:
 
 1. **`assets/css/styles.css`** — if any approved line requires a new utility class that doesn't exist yet. Add the new class following this pattern:
    ```css
@@ -78,9 +82,13 @@ Apply only the lines the user approved. Touch two things only:
      <property>: var(--zaq-<semantic-token>);
    }
    ```
-   Never add to `app.css`.
+   Never add to `app.css`. The four source files (`semantics.css`, `text-styles.css`, `btn.css`, `styles.css`) are look-up sources — only `styles.css` is writable.
 
-2. **The Storybook story** for the target component. If the story doesn't exist yet, create one at `storybook/components/<category>/<component_name>.story.exs` using the pattern from an existing story (e.g. `storybook/components/misc/header.story.exs`).
+2. **The Storybook story** for the target component.
+   - If the target is a layout file (any file matching `*_layout.ex`, `*_layout.html.heex`, `root.html.heex`): skip Storybook story creation and note it in your output — layout files have no 1:1 Storybook story.
+   - Otherwise: update the existing story or create one at `storybook/components/<category>/<component_name>.story.exs` using the pattern from an existing story (e.g. `storybook/components/misc/header.story.exs`).
+
+Mark this component as `staged` in your in-conversation ledger (see Batching section).
 
 Then say: "Changes staged in Storybook. Run `mix storybook` and review visually. Reply `approved` when ready or describe what needs adjusting."
 
@@ -92,41 +100,48 @@ Then say: "Changes staged in Storybook. Run `mix storybook` and review visually.
 
 Apply the same approved changes to the actual app template file(s).
 
-Then run verification:
+Then run verification from the project root:
 
 ```bash
-bash style-guard.sh
+cd /path/to/project && bash style-guard.sh
 mix format
 ```
 
 Report results. If `style-guard.sh` fails, show the failing lines and fix them before proceeding.
 
+Mark this component as `approved` in your in-conversation ledger.
+
 ---
 
 ## Step 6: Confirm PR Readiness
 
-Say: "Changes applied and verified. Run `mix q` before opening the PR. Files changed:
+Say: "Changes applied and verified. **Developer gate:** run `mix q` before opening the PR. Files changed:
 - [list every file touched]"
 
 ---
 
 ## Batching Multiple Components
 
-You can migrate several components in one session before applying any of them to the app. After Step 4 for each component, it is `staged` (Storybook updated, not yet in app templates). After Step 5, it is `approved` (app template updated).
+You can migrate several components in one session before applying any of them to the app. After Step 4, a component is `staged`. After Step 5, it is `approved`.
 
-To batch:
-1. Run Steps 1–4 for component A → it is now `staged`
-2. Run Steps 1–4 for component B → it is now `staged`
-3. When ready to ship, list all staged components and apply Step 5 for each in one pass
-4. Run verification once across the full batch, then open one PR
+Maintain an explicit in-conversation ledger and reprint it after each state change:
 
-Keep track of staged vs approved state in the conversation. There is no persistent state file — batching is session-scoped only.
+```
+Staged:   [component A, component B]
+Approved: [component C]
+```
+
+To batch-apply: when the user is ready to ship, list all `staged` items, confirm, then run Step 5 for each in one pass. Run `style-guard.sh` and `mix format` once across the full batch, then open one PR.
+
+Batching is session-scoped — there is no persistent state file.
 
 ---
 
 ## Full Sweep (`--audit-all`)
 
-Sweep all files under `lib/zaq_web/` and `assets/css/`. For each file, flag violations by severity:
+Sweep all files under `lib/zaq_web/`. Do NOT flag violations inside `assets/css/` files — those are the token source files, not templates. Include `assets/css/app.css` only to identify deprecated utility class definitions that can eventually be removed.
+
+For each file, flag violations by severity:
 
 ```
 CRITICAL  hardcoded hex/rgb, foundation vars used in templates
@@ -135,7 +150,9 @@ MEDIUM    Tailwind color/typography classes (text-sm, bg-white, text-gray-*, fon
 LOW       Tailwind layout classes (no action needed)
 ```
 
-Write the output to `docs/exec-plans/migration-backlog.md` in this format:
+Before writing output, check whether `docs/exec-plans/migration-backlog.md` already exists. If it does, ask: "A backlog file already exists. Overwrite it or append a new timestamped section?" Wait for confirmation.
+
+Write (or append) to `docs/exec-plans/migration-backlog.md` in this format:
 
 ```markdown
 # Design Migration Backlog
@@ -162,7 +179,7 @@ Then say: "Backlog written to `docs/exec-plans/migration-backlog.md`. Run `/desi
 
 Apply styles in this exact order:
 
-1. **Use an existing class** from `styles.css`, `semantics.css`, `text-styles.css`, or `btn.css`.
+1. **Use an existing class** from `styles.css`, `semantics.css`, `text-styles.css`, or `btn.css` (read-only look-up sources — only `styles.css` is writable).
    Classes in `app.css` are off-limits — legacy/deprecated.
 2. **Buttons** → `.zaq-btn-primary` or `.zaq-btn-secondary` only. No new button styles.
 3. **Text** → closest `.zaq-text-*` from `text-styles.css`. No `text-sm`, `text-lg`, `text-[*]`, no font vars.
