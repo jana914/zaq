@@ -6,6 +6,7 @@
 @import "./text-styles.css";
 @import "./semantics.css";
 @import "./btn.css";
+@import "./styles.css";
 @source "../css";
 @source "../js";
 @source "../../lib/zaq_web";

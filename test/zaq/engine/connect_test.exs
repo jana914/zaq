@@ -1,5 +1,5 @@
 defmodule Zaq.Engine.ConnectTest do
-  use Zaq.DataCase, async: true
+  use Zaq.DataCase, async: false
 
   alias Zaq.Channels.ChannelConfig
   alias Zaq.Engine.Connect

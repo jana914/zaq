@@ -22,6 +22,10 @@
   --zaq-text-color-body-secondary: var(--zaq-color-black-200);
   --zaq-text-color-body-tertiary:  var(--zaq-color-black-100);
   --zaq-text-color-body-invert:    var(--zaq-color-neutral-100);
+  --zaq-text-color-body-accent:    var(--zaq-color-blue-400);
+
+  /* ── semantics/colors/loading ───────────────────────────────────────────── */
+  --zaq-bg-loading-default: var(--zaq-gradient-neon);
 }
 
 /* ── Dark mode ───────────────────────────────────────────────────────────── */
@@ -37,3 +41,20 @@
   /* color-text-body, surface-elevated, surface-accent, border-accent, border-error:
      no override needed — same foundation tokens as light mode */
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+  ZAQ Semantic Shape Tokens
+  These should never be used inline - only used to create classes in styles.css
+───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── semantics/card ────────────────────────────────────────────────────── */
+  --zaq-card-gap-default:     var(--zaq-scale-16);
+  --zaq-card-padding-default: var(--zaq-scale-16);
+  --zaq-card-radius-default:  var(--zaq-scale-16);
+  
+  /* ── semantics/border ────────────────────────────────────────────────────── */
+  --zaq-border-thickness-default: var(--zaq-scale-1);
+}
+
+
