@@ -27,6 +27,8 @@
   --zaq-btn-primary-color-icon-hover:    var(--zaq-color-black-300);
   --zaq-btn-primary-color-icon-disabled: var(--zaq-color-black-100);
   
+  /* btn/primary/color/border */
+  --zaq-btn-primary-color-border-resting:  var(--zaq-gradient-neon);
   
   
   /* btn/secondary/
@@ -86,7 +88,7 @@
   border-radius:   var(--zaq-btn-all-radius-default);
   border:          var(--zaq-scale-1) solid transparent;
   cursor:          pointer;
-  transition:      background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  transition:      background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 .zaq-btn:disabled,
@@ -97,20 +99,22 @@
 
 /* ── Primary ─────────────────────────────────────────────────────────────── */
 .zaq-btn-primary {
-  background-color: var(--zaq-btn-primary-color-bg-resting);
-  color:            var(--zaq-btn-primary-color-text-resting);
-  border-color:     transparent;
+  color:      var(--zaq-btn-primary-color-text-resting);
+  border:     var(--zaq-scale-2) solid transparent;
+  background: linear-gradient(var(--zaq-btn-primary-color-bg-resting), var(--zaq-btn-primary-color-bg-resting)) padding-box,
+              var(--zaq-btn-primary-color-border-resting) border-box;
 }
 
 .zaq-btn-primary:hover {
-  background-color: var(--zaq-btn-primary-color-bg-hover);
-  color:            var(--zaq-btn-primary-color-text-hover);
+  color:      var(--zaq-btn-primary-color-text-hover);
+  background: linear-gradient(var(--zaq-btn-primary-color-bg-hover), var(--zaq-btn-primary-color-bg-hover)) padding-box,
+              var(--zaq-btn-primary-color-border-resting) border-box;
 }
 
 .zaq-btn-primary:disabled,
 .zaq-btn-primary[aria-disabled="true"] {
-  background-color: var(--zaq-btn-primary-color-bg-disabled);
-  color:            var(--zaq-btn-primary-color-text-disabled);
+  color:      var(--zaq-btn-primary-color-text-disabled);
+  background: var(--zaq-btn-primary-color-bg-disabled);
 }
 
 /* ── Secondary ───────────────────────────────────────────────────────────── */

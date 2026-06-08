@@ -146,5 +146,11 @@ test.describe("Storybook dark mode bridge", () => {
       getComputedStyle(el).color
     );
     expect(darkSecondaryText).toBe("rgb(160, 178, 200)");
+
+    // Dark: secondary border = neutral-400 dark = rgb(27, 45, 62) (#1B2D3E)
+    const darkSecondaryBorder = await secondaryBtn.evaluate((el) =>
+      getComputedStyle(el).borderColor
+    );
+    expect(darkSecondaryBorder).toBe("rgb(27, 45, 62)");
   });
 });

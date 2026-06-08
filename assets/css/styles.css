@@ -1,0 +1,16 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   ZAQ Component Classes
+   Consumes semantic tokens from semantics.css — no hardcoded values.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+
+.zaq-card-default {
+  gap:           var(--zaq-card-gap-default);
+  padding:       var(--zaq-card-padding-default);
+  border-radius: var(--zaq-card-radius-default);
+}
+
+.zaq-border-default {
+  border:var(--zaq-border-color-default) solid var(--zaq-border-thickness-default);
+}

@@ -90,7 +90,7 @@
   letter-spacing: var(--zaq-letter-spacing-default);
 }
 
-/* ── Code & Monospace ────────────────────────────────────────────────────── */
+/* ── Code & Monospace for code type content only / no body text or headings ────────────────────────────────────────────────────── */
 
 .zaq-text-code {
   font-family:    var(--zaq-font-family-code);
