@@ -81,6 +81,8 @@ bo_layout.ex:198  #03b6d4                   → --zaq-border-color-accent      (
 bo_layout.ex:201  .zaq-bg-ink               → --zaq-surface-color-dark       (app.css class, off-limits)
 bo_layout.ex:220  font-mono text-xs         → .zaq-text-caption              (closest text role)
 bo_layout.ex:310  <.button>                 → .zaq-btn-primary               (replace with btn.css class)
+bo_layout.ex:512  text-red-600             → style="color: var(--zaq-border-color-error)"  ← NEVER DO THIS: border token on a text color property
+bo_layout.ex:512  text-red-600             → (⚠ no token for this role — keep legacy or request new token)  (no --zaq-text-color-error exists)
 ```
 
 Mark ambiguous text scale choices with `(⚠ ambiguous — override if needed)`.
