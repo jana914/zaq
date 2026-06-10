@@ -1,6 +1,6 @@
 ---
 name: design-migrate
-description: Migrate ZAQ component or page styling to the --zaq-* token system. Accepts a Figma frame URL (design-led), a file path (audit), or --audit-all (full sweep). Always produces a diff proposal before modifying app templates. Full sweep mode writes a backlog file directly.
+description: Migrate ZAQ component or page styling to the --zaq-* token system. Accepts a Figma frame URL (design-led), a file path (audit), or --audit-all (full sweep). Always produces a diff proposal. Stages in Storybook first (Step 4), then applies to component files only after visual approval (Step 5). Full sweep mode writes a backlog file directly.
 trigger: when the user types /design-migrate
 ---
 
@@ -93,9 +93,14 @@ Present the full diff. Then ask: "Approve all, or list line numbers to reject/ov
 
 ---
 
-## Step 4: Stage in CSS and Storybook Only (DO NOT modify the app template yet)
+## Step 4: Stage in CSS and Storybook Only
 
-Apply only the lines the user approved. Touch **two things only** — not the app template:
+Apply only the lines the user approved. In this step you may write to **exactly two file types only**:
+
+- `assets/css/styles.css` — new utility classes only
+- `storybook/**/*.story.exs` — the story for the target component
+
+**You must NOT edit the component file (`.ex`) or any file in `lib/zaq_web/components/` in this step, regardless of the diff approval.** That happens in Step 5, after visual approval in Storybook. "Component file", "source file", "the file being migrated" — all refer to the same thing and all are forbidden here.
 
 1. **`assets/css/styles.css`** — if any approved line requires a new utility class that doesn't exist yet. Add the new class following this pattern:
    ```css
@@ -104,7 +109,7 @@ Apply only the lines the user approved. Touch **two things only** — not the ap
      <property>: var(--zaq-<semantic-token>);
    }
    ```
-   Never add to `app.css`. The four source files (`semantics.css`, `text-styles.css`, `btn.css`, `styles.css`) are look-up sources — only `styles.css` is writable.
+   Never add to `app.css`.
 
 2. **The Storybook story** for the target component.
    - If the target is a layout file (any file matching `*_layout.ex`, `*_layout.html.heex`, `root.html.heex`): skip Storybook story creation and note it in your output — layout files have no 1:1 Storybook story.
@@ -118,9 +123,9 @@ Then say: "Changes staged in Storybook. Run `mix storybook` and review visually.
 
 ---
 
-## Step 5: Apply to App Template
+## Step 5: Apply to Component File
 
-Apply the same approved changes to the actual app template file(s).
+Now — and only now, after visual Storybook approval — apply the same approved changes to the component source file in `lib/zaq_web/components/`.
 
 Then run verification from the project root:
 
