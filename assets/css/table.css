@@ -1,5 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    `.zaq-table` — BO data table shell (list / dense grids).
+   Ingestion file grid chrome + cards: `ZaqWeb.Components.DesignSystem.IngestionFileGridView`.
    Consumes semantic tokens from semantics.css only.
    Primary consumer: `ZaqWeb.Components.DesignSystem.IngestionFileListView`.
    ───────────────────────────────────────────────────────────────────────────── */
@@ -47,6 +48,12 @@
   background: var(--zaq-surface-color-base);
 }
 
+/* Head-only table used as grid toolbar inside `.zaq-file-preview-shell` — drop outer table chrome; thead matches list view. */
+.zaq-file-preview-shell .zaq-table.zaq-table--ingestion-grid-header {
+  background: transparent;
+  border-radius: 0;
+}
+
 .zaq-table tbody tr {
   transition: background-color 150ms ease;
 }
@@ -63,23 +70,7 @@
   background: var(--zaq-surface-color-accent);
 }
 
-/* ── Row selection (scoped checkboxes — no extra classes in markup) ─ */
-
-.zaq-table input[type="checkbox"] {
-  width: var(--zaq-scale-16);
-  height: var(--zaq-scale-16);
-  flex-shrink: 0;
-  border-radius: var(--zaq-scale-4);
-  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
-  cursor: pointer;
-  accent-color: var(--zaq-text-color-body-accent);
-  transition: outline-color 150ms ease, border-color 150ms ease;
-}
-
-.zaq-table input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--zaq-border-color-accent);
-  outline-offset: 2px;
-}
+/* Row selection checkboxes: `.zaq-bo-checkbox` + `.zaq-focus-visible` on inputs (styles.css). */
 
 /* ── File name: open preview (default → accent on hover) ─ */
 
@@ -135,4 +126,66 @@
 .zaq-table-sidecar-preview-meta {
   flex-shrink: 0;
   white-space: nowrap;
+}
+
+/* ── Ingestion file grid (`IngestionFileGridView`) — card tiles + sidecar ─ */
+
+/* Wrapper around empty state + card grid: equal inset from preview shell */
+.zaq-ingestion-file-grid-cards-wrap {
+  margin: var(--zaq-scale-16);
+  min-height: 0;
+}
+
+.zaq-ingestion-file-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--zaq-scale-8);
+}
+
+/* Card tiles */
+.zaq-ingestion-file-grid-card {
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--zaq-scale-8);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+  background: var(--zaq-surface-color-raised);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  overflow: hidden;
+}
+
+.zaq-ingestion-file-grid-card:hover:not(.zaq-ingestion-file-grid-card--selected) {
+  border-color: var(--zaq-border-color-strong);
+}
+
+.zaq-ingestion-file-grid-card--selected {
+  border-color: var(--zaq-border-color-accent);
+  background: var(--zaq-surface-color-accent);
+}
+
+/* Hover action strip — vertical stack on the right, inset so controls stay inside the card */
+.zaq-ingestion-file-grid-card-actions {
+  position: absolute;
+  top: var(--zaq-scale-8);
+  right: var(--zaq-scale-8);
+  bottom: var(--zaq-scale-8);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--zaq-scale-2);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Reuse `.zaq-table-sidecar-preview` in grid cards — drop table-only offsets */
+.zaq-table-sidecar-preview.zaq-table-sidecar-preview--ingestion-grid {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+  border-top: var(--zaq-border-thickness-default) dashed var(--zaq-border-color-default);
+  padding-top: var(--zaq-scale-8);
+  margin-top: var(--zaq-scale-8);
+  justify-content: center;
+  flex-wrap: wrap;
 }

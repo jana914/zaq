@@ -29,6 +29,7 @@ defmodule ZaqWeb.Components.DesignSystem.IngestionFileListView do
             <th class="w-6 px-2 py-2 xl:px-3 xl:py-3.5">
               <input
                 type="checkbox"
+                class="zaq-bo-checkbox zaq-focus-visible"
                 phx-click="select_all"
                 checked={MapSet.size(@selected) > 0 and MapSet.size(@selected) == length(@entries)}
               />
@@ -65,6 +66,7 @@ defmodule ZaqWeb.Components.DesignSystem.IngestionFileListView do
               <td class="px-2 py-2 xl:px-3 xl:py-3 w-6">
                 <input
                   type="checkbox"
+                  class="zaq-bo-checkbox zaq-focus-visible"
                   phx-click="toggle_select"
                   phx-value-path={Path.join(@current_dir, entry.name)}
                   checked={MapSet.member?(@selected, Path.join(@current_dir, entry.name))}
