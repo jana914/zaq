@@ -70,11 +70,11 @@ function fileRow(page, filename) {
   return page.getByRole("row", { name: filename })
 }
 
-// Find a sidecar sub-row by filename. Sidecar rows use the distinct
-// `zaq-bg-accent-faint` class and contain a preview button rather than a
-// checkbox — they are not matched reliably by getByRole("row", { name }).
+// Find the converted-markdown preview control by filename (list + grid).
+// Implemented as button.zaq-table-sidecar-preview (grid adds --ingestion-grid);
+// not getByRole("row") because grid has no sidecar <tr>.
 function sidecarRow(page, filename) {
-  return page.locator("tr.zaq-bg-accent-faint").filter({ hasText: filename })
+  return page.locator("button.zaq-table-sidecar-preview").filter({ hasText: filename })
 }
 
 // Ensure the file is selected then ingest.
