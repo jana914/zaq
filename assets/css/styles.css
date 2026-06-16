@@ -11,8 +11,64 @@
   border-radius: var(--zaq-card-radius-default);
 }
 
+/* ── Border ────────────────────────────────────────────────────────────────── */
 .zaq-border-default {
   border:var(--zaq-border-color-default) solid var(--zaq-border-thickness-default);
+}
+
+/* Keyboard focus ring — add to any interactive control (buttons, links, custom inputs). */
+.zaq-focus-visible:focus-visible {
+  outline: var(--zaq-scale-2) solid var(--zaq-border-color-accent);
+  outline-offset: var(--zaq-scale-2);
+  border-radius: var(--zaq-scale-4);
+}
+
+/* BO checkboxes — shared by `IngestionFileListView` (`.zaq-table`) and `IngestionFileGridView`.
+   Fully custom paint (`appearance: none`) so fill + border use ZAQ tokens (native controls skew warm in dark UA themes). */
+
+.zaq-bo-checkbox {
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: var(--zaq-scale-16);
+  height: var(--zaq-scale-16);
+  flex-shrink: 0;
+  margin: 0;
+  border-radius: var(--zaq-scale-4);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-strong);
+  background: var(--zaq-surface-color-raised);
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.zaq-bo-checkbox:hover:not(:disabled) {
+  border-color: var(--zaq-border-color-accent);
+}
+
+.zaq-bo-checkbox:checked {
+  border-color: var(--zaq-border-color-accent);
+  background: var(--zaq-surface-color-accent);
+}
+
+/* Checkmark — L-shaped borders, token sizes only */
+.zaq-bo-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: var(--zaq-scale-4);
+  top: var(--zaq-scale-2);
+  width: var(--zaq-scale-4);
+  height: var(--zaq-scale-8);
+  border-right: var(--zaq-scale-2) solid var(--zaq-text-color-body-accent);
+  border-bottom: var(--zaq-scale-2) solid var(--zaq-text-color-body-accent);
+  transform: rotate(45deg);
+}
+
+.zaq-bo-checkbox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ── Dropdown / menu item ─────────────────────────────────────────────────── */
@@ -109,7 +165,6 @@
   background: var(--zaq-surface-color-raised);
   border-radius: var(--zaq-scale-16);
   border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Use with .zaq-file-preview-shell on not-found / binary blocks */
