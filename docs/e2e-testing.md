@@ -24,12 +24,14 @@ test/e2e/
 
 ### Prerequisites
 
-1. Build assets (first time or after asset changes):
+1. **PostgreSQL** reachable at `localhost:5432` (same as CI and `docker compose` in this repo). With `E2E=1`, the app re-applies DB settings **after** `config/test.secret.exs`, so a worktree-specific repo port in that file does not apply to the E2E server. Override only when intentional: `E2E_DB_HOST`, `E2E_DB_PORT`, `E2E_DB_USER`, `E2E_DB_PASSWORD`.
+
+2. Build assets (first time or after asset changes):
    ```bash
    mix assets.setup && mix assets.build
    ```
 
-2. Install Playwright dependencies (first time):
+3. Install Playwright dependencies (first time):
    ```bash
    cd test/e2e && npm install
    ```

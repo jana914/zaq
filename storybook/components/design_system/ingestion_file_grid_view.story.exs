@@ -33,6 +33,23 @@ defmodule Storybook.Components.DesignSystem.IngestionFileGridView do
       </.story_block>
 
       <.story_block
+        title="Converted markdown sidecar (PDF)"
+        description={
+          "Same sidecar data as list view: related .md preview on the card. " <>
+            "Grid: button.zaq-table-sidecar-preview.zaq-table-sidecar-preview--ingestion-grid " <>
+            "(filename in .zaq-table-sidecar-preview-name)."
+        }
+      >
+        <.file_grid_view
+          entries={sidecar_only_entries()}
+          selected={@empty}
+          current_dir="."
+          current_volume="default"
+          ingestion_map={sidecar_only_ingestion_map()}
+        />
+      </.story_block>
+
+      <.story_block
         title="Populated directory"
         description="Folders, file statuses, shared/public badges, sidecar preview link, and one selected card."
       >
@@ -189,6 +206,30 @@ defmodule Storybook.Components.DesignSystem.IngestionFileGridView do
         can_share?: false
       },
       "slide.pdf" => %{
+        ingested_at: @dt,
+        stale?: false,
+        permissions_count: 0,
+        is_public: false,
+        can_share?: true
+      }
+    }
+  end
+
+  defp sidecar_only_entries do
+    [
+      %{
+        name: "demo.pdf",
+        type: :file,
+        size: 42_000,
+        modified_at: @dt,
+        related_md: %{name: "demo.md", size: 9_800}
+      }
+    ]
+  end
+
+  defp sidecar_only_ingestion_map do
+    %{
+      "demo.pdf" => %{
         ingested_at: @dt,
         stale?: false,
         permissions_count: 0,

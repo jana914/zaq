@@ -65,6 +65,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     render_click(view, "accept_portal_consent")
 
     assert has_element?(
@@ -138,6 +139,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     render_click(view, "accept_portal_consent")
     render_click(view, "close_post_accept_modal")
 
@@ -197,6 +199,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     render_click(view, "accept_portal_consent")
 
     assert has_element?(view, "div.alert-error span", "must be a valid email address")
@@ -217,6 +220,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     render_click(view, "decline_portal_consent")
     assert_redirect(view, ~p"/bo/dashboard")
 
@@ -312,6 +316,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     html = render_click(view, "accept_portal_consent")
 
     assert html =~ "This email already has a portal account."
@@ -347,6 +352,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
+    assert render_async(view) =~ "To create your ZAQ account..."
     assert has_element?(view, "[phx-click='accept_portal_consent']")
 
     html = render_click(view, "close_consent_modal")

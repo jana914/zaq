@@ -33,6 +33,23 @@ defmodule Storybook.Components.DesignSystem.IngestionFileListView do
       </.story_block>
 
       <.story_block
+        title="Converted markdown sidecar (PDF)"
+        description={
+          "After PDF ingest, DirectorySnapshot attaches a related .md file. " <>
+            "List view: sub-row tr.zaq-table-row--sidecar; preview control button.zaq-table-sidecar-preview " <>
+            "(matches E2E / Playwright hooks)."
+        }
+      >
+        <.file_list_view
+          entries={sidecar_only_entries()}
+          selected={@empty}
+          current_dir="."
+          current_volume="default"
+          ingestion_map={sidecar_only_ingestion_map()}
+        />
+      </.story_block>
+
+      <.story_block
         title="Populated directory"
         description="Folders, file statuses (job + ingestion), access badges, sidecar row, and one selected row."
       >
@@ -189,6 +206,30 @@ defmodule Storybook.Components.DesignSystem.IngestionFileListView do
         can_share?: false
       },
       "slide.pdf" => %{
+        ingested_at: @dt,
+        stale?: false,
+        permissions_count: 0,
+        is_public: false,
+        can_share?: true
+      }
+    }
+  end
+
+  defp sidecar_only_entries do
+    [
+      %{
+        name: "demo.pdf",
+        type: :file,
+        size: 42_000,
+        modified_at: @dt,
+        related_md: %{name: "demo.md", size: 9_800}
+      }
+    ]
+  end
+
+  defp sidecar_only_ingestion_map do
+    %{
+      "demo.pdf" => %{
         ingested_at: @dt,
         stale?: false,
         permissions_count: 0,
