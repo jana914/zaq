@@ -65,6 +65,7 @@ config/test.secret.exs
 .env
 
 .vscode/
+.cursor/
 
 .serena
 .swarm
