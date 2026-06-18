@@ -4,6 +4,7 @@ defmodule ZaqWeb.E2EController do
   use ZaqWeb, :controller
 
   alias Zaq.Accounts
+  alias Zaq.Addons.FeatureStore
   alias Zaq.Agent.MCP
   alias Zaq.E2E.{LogCollector, PortalState, ProcessorState, Reset}
   alias Zaq.Engine.Conversations
@@ -40,6 +41,35 @@ defmodule ZaqWeb.E2EController do
     :ok = Reset.run()
     json(conn, %{ok: true})
   end
+
+  # POST /e2e/addon-package — seed in-memory add-on package data for dashboard E2E.
+  # JSON body: pass `"clear": true` to clear only the feature store (unusual — prefer POST /e2e/reset).
+  # Otherwise requires string-keyed addon map: "company_name", "license_key", "expires_at", "features" (list).
+  def seed_addon_package(conn, params) do
+    if truthy_clear?(Map.get(params, "clear")) do
+      :ok = FeatureStore.clear()
+      json(conn, %{ok: true, cleared: true})
+    else
+      seed_addon_package_when_present(conn, params)
+    end
+  end
+
+  defp seed_addon_package_when_present(conn, params) do
+    company = Map.get(params, "company_name")
+
+    if is_binary(company) and company != "" do
+      :ok = FeatureStore.store(params, [])
+      json(conn, %{ok: true})
+    else
+      conn
+      |> put_status(:bad_request)
+      |> json(%{error: "missing or empty company_name"})
+    end
+  end
+
+  defp truthy_clear?(true), do: true
+  defp truthy_clear?("true"), do: true
+  defp truthy_clear?(_), do: false
 
   # POST /e2e/system-config with JSON body: {"key": "...", "value": "..."}
   def set_system_config(conn, params) do

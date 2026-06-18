@@ -203,6 +203,20 @@ async function resetE2EState(request, options = {}) {
   }
 }
 
+// Seed in-memory add-on package data (FeatureStore) for dashboard E2E.
+// Body uses string keys: company_name, license_key, expires_at (ISO-8601), features (array of { name }).
+async function createE2EAddonPackage(request, attrs, options = {}) {
+  const baseURL = normalizeBaseURL(options.baseURL);
+  const res = await request.post(`${baseURL}/e2e/addon-package`, {
+    data: attrs,
+    headers: { "Content-Type": "application/json" },
+  });
+  if (!res.ok()) {
+    throw new Error(`/e2e/addon-package returned ${res.status()} ${await res.text()}`);
+  }
+  return res.json();
+}
+
 async function setE2ESystemConfig(request, key, value, options = {}) {
   const baseURL = normalizeBaseURL(options.baseURL);
   const res = await request.post(`${baseURL}/e2e/system-config`, {
@@ -343,6 +357,7 @@ module.exports = {
   dismissFlash,
   normalizeBaseURL,
   resetE2EState,
+  createE2EAddonPackage,
   setE2ESystemConfig,
   touchE2EFile,
   createE2EAiCredential,

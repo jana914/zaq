@@ -11,6 +11,7 @@ defmodule Zaq.E2E.Reset do
   #   * Conversations/messages wiped, then the deterministic "E2E Unsupported
   #     Source Conversation" fixture is re-seeded (needed by Journey 4)
   #   * Persons/teams/channels wiped
+  #   * In-memory add-on package data cleared (`FeatureStore`)
   #   * ProcessorState back to 0 consecutive failures
   #
   # The bootstrap script is authoritative for content — this module reuses the
@@ -18,6 +19,7 @@ defmodule Zaq.E2E.Reset do
 
   alias Zaq.Accounts
   alias Zaq.Accounts.User
+  alias Zaq.Addons.FeatureStore
   alias Zaq.Agent.ConfiguredAgent
   alias Zaq.Agent.MCP.Endpoint, as: MCPEndpoint
   alias Zaq.E2E.DocumentProcessorFake
@@ -54,6 +56,7 @@ defmodule Zaq.E2E.Reset do
   def run do
     ProcessorState.reset()
     PortalState.reset()
+    :ok = FeatureStore.clear()
 
     reset_filesystem!()
     reset_ingestion_tables!()
