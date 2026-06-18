@@ -37,8 +37,8 @@ defmodule Storybook.Layouts.BoLayout do
         <p style="font-size: 0.875rem; color: var(--zaq-color-ink-soft); margin-bottom: 1rem;">
           Inline flash banners rendered inside the layout content area. Auto-dismiss is disabled so they remain visible.
         </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div style="width: 100%; min-width: 0;">
             <p style="font-size: 0.75rem; font-weight: 600; color: var(--zaq-color-ink-soft); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
               Info / Success
             </p>
@@ -56,7 +56,7 @@ defmodule Storybook.Layouts.BoLayout do
               </ZaqWeb.Components.BOLayout.bo_layout>
             </div>
           </div>
-          <div>
+          <div style="width: 100%; min-width: 0;">
             <p style="font-size: 0.75rem; font-weight: 600; color: var(--zaq-color-ink-soft); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">
               Error
             </p>
