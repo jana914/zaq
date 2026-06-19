@@ -34,14 +34,20 @@ defmodule ZaqWeb.Components.BOTelemetryComponents do
     assigns = assign_from_card(assigns)
 
     ~H"""
-    <article
-      id={@id}
-      class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:shadow"
-    >
-      <p class="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-slate-500">{@label}</p>
+    <article id={@id} class="zaq-card-default zaq-border-default zaq-card-hover">
+      <p
+        class="zaq-text-caption uppercase tracking-[0.18em]"
+        style="color: var(--zaq-text-color-body-secondary);"
+      >
+        {@label}
+      </p>
       <div class="mt-3 flex items-end justify-between gap-3">
-        <p class="text-3xl font-semibold tracking-tight text-slate-900">
-          {format_value(@value)}<span :if={@unit} class="ml-1 text-sm text-slate-500">{@unit}</span>
+        <p class="zaq-text-h1" style="color: var(--zaq-text-color-body-default);">
+          {format_value(@value)}<span
+            :if={@unit}
+            class="zaq-text-body-sm ml-1"
+            style="color: var(--zaq-text-color-body-secondary);"
+          >{@unit}</span>
         </p>
         <p
           :if={is_number(@trend)}
@@ -56,7 +62,11 @@ defmodule ZaqWeb.Components.BOTelemetryComponents do
           {trend_label(@trend)}
         </p>
       </div>
-      <p :if={metadata_line(@display, @range, @hint)} class="mt-3 text-xs text-slate-500">
+      <p
+        :if={metadata_line(@display, @range, @hint)}
+        class="zaq-text-body-sm mt-3"
+        style="color: var(--zaq-text-color-body-tertiary);"
+      >
         {metadata_line(@display, @range, @hint)}
       </p>
     </article>

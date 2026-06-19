@@ -14,6 +14,18 @@
   border-radius: var(--zaq-card-radius-default);
 }
 
+/* Raised card surface + shadow; accent border/shadow on hover only when this node is a
+   direct child of a real interactive control (e.g. dashboard link wrapping the metric card). */
+.zaq-card-hover {
+  background: var(--zaq-surface-color-raised);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+:is(a, button, [role="button"], [role="link"], label):hover > .zaq-card-hover,
+:is(a, button, [role="button"], [role="link"], label):focus-visible > .zaq-card-hover {
+  border-color: var(--zaq-border-color-accent);
+}
+
 /* ── Border ────────────────────────────────────────────────────────────────── */
 .zaq-border-default {
   border:var(--zaq-border-color-default) solid var(--zaq-border-thickness-default);
