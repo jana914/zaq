@@ -4,7 +4,7 @@ defmodule ZaqWeb.Storybook do
     otp_app: :zaq,
     content_path: Path.expand("../../../storybook", __DIR__),
     css_path: "/assets/css/app.css",
-    js_path: "/assets/js/app.js",
+    js_path: "/assets/js/storybook.js",
     title: "ZAQ Design System",
     color_mode: true,
     color_mode_sandbox_dark_class: "dark",
