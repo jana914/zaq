@@ -19,7 +19,9 @@
     <div class="flex items-center justify-between gap-3">
       <div>
         <div class="flex items-center gap-2">
-          <h1 class="font-mono text-lg font-bold text-black">{@provider_label}</h1>
+          <h1 class="font-mono text-lg font-bold text-black" data-testid="bo-main-page-heading">
+            {@provider_label}
+          </h1>
           <ZaqWeb.Components.ChannelCapabilities.icon_with_modal
             modal_open?={@capability_modal_open}
             snapshot={@capabilities_snapshot}
