@@ -18,7 +18,12 @@
       <!-- INDEX — 4 category cards: Retrieval, Data Sources, Notifications, AI Agents -->
       <!-- ============================================================== -->
       <div class="mb-8">
-        <h1 class="font-mono text-xl font-bold text-black tracking-tight">Channels</h1>
+        <h1
+          class="font-mono text-xl font-bold text-black tracking-tight"
+          data-testid="bo-main-page-heading"
+        >
+          Channels
+        </h1>
         <p class="font-mono text-[0.75rem] text-black/40 mt-1">
           Connect your team's communication tools to centralize messages and automate workflows.
         </p>
@@ -181,7 +186,12 @@
           All Channels
         </.link>
         <div class="flex items-end justify-between">
-          <h1 class="font-mono text-xl font-bold text-black tracking-tight">{@page_title}</h1>
+          <h1
+            class="font-mono text-xl font-bold text-black tracking-tight"
+            data-testid="bo-main-page-heading"
+          >
+            {@page_title}
+          </h1>
           <.link
             :if={@kind == :notification}
             navigate={~p"/bo/channels/notifications/logs"}

@@ -9,11 +9,8 @@ const {
 const CHANNELS_INDEX = "/bo/channels"
 const GOOGLE_DRIVE_PROVIDER = "/bo/channels/data_source/google_drive"
 
-// BOLayout mirrors page_title in #bo-main > header > h1.zaq-text-h1; LiveView also renders an in-page h1.
-// Target the content heading only (strict mode would fail on duplicate role="heading").
-function mainContentHeading(page, name, exact = false) {
-  return page.locator("#bo-main h1:not(.zaq-text-h1)").getByRole("heading", { name, exact })
-}
+// In-page title only — BOLayout also renders page_title in header as h1 (duplicate accessible name).
+// data-testid lives on LiveView h1s (channels_index_live, provider_live); survives zaq-text-h1 migration on body.
 
 // Keep in sync with @retrieval_preview / @data_source_preview in channels_index_live.ex
 const CHANNEL_INDEX_RETRIEVAL_PREVIEW = ["slack", "teams", "mattermost", "discord", "telegram"]
@@ -29,7 +26,9 @@ test.describe("Channels index & provider UI", () => {
     await gotoBackOfficeLive(page, CHANNELS_INDEX)
     await waitForLiveViewSettled(page)
 
-    await expect(mainContentHeading(page, "Channels", true)).toBeVisible()
+    const pageTitle = page.getByTestId("bo-main-page-heading")
+    await expect(pageTitle).toBeVisible()
+    await expect(pageTitle).toHaveText("Channels")
 
     const retrievalIcons = page.locator('[data-testid="channels-index-retrieval-icons"]')
     await expect(retrievalIcons).toBeVisible()
@@ -48,7 +47,7 @@ test.describe("Channels index & provider UI", () => {
     await gotoBackOfficeLive(page, GOOGLE_DRIVE_PROVIDER)
     await waitForLiveViewSettled(page)
 
-    await expect(mainContentHeading(page, "Google Drive")).toBeVisible()
+    await expect(page.getByTestId("bo-main-page-heading")).toHaveText("Google Drive")
 
     const trigger = page.locator('[data-testid="channel-capabilities-trigger"]')
     await expect(trigger).toBeVisible()
