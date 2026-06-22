@@ -11,7 +11,18 @@
   gap: var(--zaq-scale-8);
 }
 
-/* Uppercase meta label (mono); pair with .zaq-text-caption or .zaq-text-body-sm for size */
+.zaq-field-row-inline-control {
+  min-width: 0;
+  flex: 1;
+}
+
+.zaq-field-row-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zaq-scale-4);
+}
+
+/* Uppercase meta label */
 .zaq-field-label-uppercase {
   font-family: var(--zaq-font-family-body);
   color: var(--zaq-text-color-body-tertiary);
@@ -22,17 +33,83 @@
   letter-spacing: var(--zaq-letter-spacing-relaxed);
 }
 
-/* Native <select> — styled native: UA chrome removed so padding + chevron are predictable.
-   Chevron uses stroke=currentColor (inherits --zaq-text-color-body-default from `color`). */
-.zaq-control-select {
+/* ── Shared painted shell: native <select>, text inputs, combobox triggers ─── */
+
+.zaq-control-select,
+.zaq-control-text,
+.zaq-control-combobox-trigger {
   box-sizing: border-box;
   min-height: var(--zaq-scale-16);
   border-radius: var(--zaq-scale-16);
   border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
   background-color: var(--zaq-surface-color-raised);
   color: var(--zaq-text-color-body-default);
-  font-family: var(--zaq-font-family-body);
   padding-block: var(--zaq-scale-8);
+  font-family: var(--zaq-font-family-body);
+  font-size: var(--zaq-scale-12);
+  font-weight: var(--zaq-font-weight-regular);
+  line-height: var(--zaq-line-height-relaxed);
+  letter-spacing: var(--zaq-letter-spacing-default);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.zaq-control-select:focus:not(:focus-visible),
+.zaq-control-text:focus:not(:focus-visible),
+.zaq-control-combobox-trigger:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Inner: accent border. Outer: soft accent halo (matches double-ring focus reference). */
+.zaq-control-select:focus-visible,
+.zaq-control-text:focus-visible,
+.zaq-control-combobox-trigger:focus-visible {
+  outline: none;
+  border-color: var(--zaq-border-color-accent);
+  box-shadow:
+    0 0 0 var(--zaq-scale-2) color-mix(in srgb, var(--zaq-border-color-accent) 45%, transparent),
+    0 0 0 var(--zaq-scale-4) color-mix(in srgb, var(--zaq-border-color-accent) 22%, transparent);
+}
+
+/* Text-like inputs (<input type="text|search|password|…">) — symmetric insets, no chevron */
+.zaq-control-text {
+  padding-inline: var(--zaq-scale-8);
+}
+
+.zaq-control-text::placeholder {
+  color: var(--zaq-text-color-body-tertiary);
+}
+
+/* Denser field (compact searchable select, tight tables) */
+.zaq-control-text--compact,
+.zaq-control-combobox-trigger--compact {
+  border-radius: var(--zaq-scale-16);
+}
+
+.zaq-control-text--compact {
+  min-height: var(--zaq-scale-32);
+}
+
+/* Closed combobox trigger — same shell as .zaq-control-text, flex row + chevron slot */
+.zaq-control-combobox-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: var(--zaq-scale-48);
+  padding-inline: var(--zaq-scale-16);
+  cursor: pointer;
+  text-align: left;
+}
+
+.zaq-control-combobox-trigger--compact {
+  min-height: var(--zaq-scale-32);
+}
+
+/* Native <select> — styled native: UA chrome removed so padding + chevron are predictable.
+   Chevron uses stroke=currentColor (inherits --zaq-text-color-body-default from `color`). */
+.zaq-control-select {
   padding-inline-start: var(--zaq-scale-8);
   /* icon (scale-16) + inset from edge (scale-8) + text gap (scale-16) — scale-8/16 only */
   padding-inline-end: calc(var(--zaq-scale-16) + var(--zaq-scale-8) + var(--zaq-scale-16));
@@ -50,12 +127,38 @@
   display: none;
 }
 
-.zaq-control-select:focus:not(:focus-visible) {
-  outline: none;
+/* Padded dropdown row — use with .zaq-dropdown-menu-item when menu sets its own inset
+   (e.g. SearchableSelect options; BO nav menus keep custom Tailwind padding). */
+.zaq-dropdown-menu-item--padded {
+  padding-block: var(--zaq-scale-8);
+  padding-inline: var(--zaq-scale-16);
 }
 
-.zaq-control-select:focus-visible {
-  outline: var(--zaq-scale-2) solid var(--zaq-border-color-accent);
-  outline-offset: var(--zaq-scale-2);
-  border-color: var(--zaq-border-color-accent);
+/* Searchable combobox — panel chrome (LiveView SearchableSelect, data-select-*) */
+.zaq-searchable-select-panel {
+  background: var(--zaq-surface-color-raised);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+  border-radius: var(--zaq-scale-12);
+  margin-top: var(--zaq-scale-4);
+}
+
+.zaq-searchable-select-search-row {
+  padding: var(--zaq-scale-8);
+}
+
+.zaq-searchable-select-create {
+  width: 100%;
+  text-align: left;
+  padding-block: var(--zaq-scale-8);
+  padding-inline: var(--zaq-scale-16);
+  border: none;
+  background: transparent;
+  color: var(--zaq-text-color-body-accent);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-family: inherit;
+}
+
+.zaq-searchable-select-create:hover {
+  background: var(--zaq-surface-color-accent);
 }

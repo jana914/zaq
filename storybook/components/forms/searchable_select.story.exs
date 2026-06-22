@@ -5,7 +5,28 @@ defmodule Storybook.Components.Forms.SearchableSelect do
 
   def render(assigns) do
     ~H"""
-    <div style="font-family: var(--zaq-font-primary, sans-serif); padding: 2rem; display: flex; flex-direction: column; gap: 2rem; max-width: 360px;">
+    <div style="font-family: var(--zaq-font-primary, sans-serif); padding: 2rem; display: flex; flex-direction: column; gap: 2rem; max-width: 420px;">
+      <.variation label="External label (zaq-field)">
+        <ZaqWeb.Components.SearchableSelect.searchable_select
+          id="select-labeled"
+          name="channel"
+          label="Channel"
+          placeholder="Select a channel…"
+          options={[{"Slack", "slack"}, {"Microsoft Teams", "teams"}, {"Discord", "discord"}]}
+        />
+      </.variation>
+
+      <.variation label="External label (block)">
+        <ZaqWeb.Components.SearchableSelect.searchable_select
+          id="select-labeled-block"
+          name="channel_block"
+          label="Channel"
+          label_position="block"
+          placeholder="Select a channel…"
+          options={[{"Slack", "slack"}, {"Microsoft Teams", "teams"}, {"Discord", "discord"}]}
+        />
+      </.variation>
+
       <.variation label="No selection">
         <ZaqWeb.Components.SearchableSelect.searchable_select
           id="select-empty"

@@ -14,13 +14,13 @@ defmodule ZaqWeb.Chat.Header do
     ~H"""
     <div class="zaq-chat-header-bar">
       <form id="chat-agent-select-form" class="zaq-field-row-inline" phx-change="select_agent">
-        <label for="chat-agent-select" class="zaq-field-label-uppercase zaq-text-caption">
+        <label for="chat-agent-select" class="zaq-field-label-uppercase">
           Agent
         </label>
         <select
           id="chat-agent-select"
           name="agent_id"
-          class="min-w-52 zaq-control-select zaq-text-body-sm"
+          class="min-w-52 zaq-control-select"
         >
           <option value="" selected={@selected_agent_id in [nil, ""]}>
             Default pipeline
