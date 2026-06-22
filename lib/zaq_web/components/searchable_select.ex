@@ -4,6 +4,9 @@ defmodule ZaqWeb.Components.SearchableSelect do
 
   Supports client-side filtering and optional creation flow integration through
   a LiveView event hook.
+
+  Pass `label` to render an external uppercase label (`.zaq-field-label-uppercase`).
+  Use `label_position` to place it `inline` (default) or `block` (above the control).
   """
   use Phoenix.Component
 
@@ -17,18 +20,64 @@ defmodule ZaqWeb.Components.SearchableSelect do
   attr :on_create_event, :string, default: "create_and_assign_team"
   attr :on_search, :string, default: nil
   attr :compact, :boolean, default: false
+  attr :label, :string, default: nil
+  attr :label_position, :string, default: "inline"
 
   @doc "Renders a searchable select dropdown with optional create action."
   def searchable_select(assigns) do
+    assigns =
+      assigns
+      |> assign(:inner, inner_markup(assigns))
+      |> assign(:show_label?, present_label?(assigns.label))
+      |> assign(:block_label?, block_label?(assigns.label_position))
+
+    ~H"""
+    <%= if @show_label? do %>
+      <%= if @block_label? do %>
+        <div class="zaq-field-row-block">
+          <label for={"#{@id}-trigger"} class="zaq-field-label-uppercase zaq-text-caption">
+            {@label}
+          </label>
+          {@inner}
+        </div>
+      <% else %>
+        <div class="zaq-field-row-inline">
+          <label for={"#{@id}-trigger"} class="zaq-field-label-uppercase zaq-text-caption">
+            {@label}
+          </label>
+          <div class="zaq-field-row-inline-control">
+            {@inner}
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      {@inner}
+    <% end %>
+    """
+  end
+
+  defp present_label?(nil), do: false
+
+  defp present_label?(s) when is_binary(s) do
+    s |> String.trim() != ""
+  end
+
+  defp present_label?(_), do: false
+
+  defp block_label?("block"), do: true
+  defp block_label?(_), do: false
+
+  defp inner_markup(assigns) do
     ~H"""
     <div id={@id} phx-hook="SearchableSelect" data-server-search={@on_search} class="relative">
       <input type="hidden" name={@name} value={@value} data-select-value />
       <button
         type="button"
+        id={"#{@id}-trigger"}
         data-select-trigger
         class={[
-          "w-full flex items-center justify-between font-mono text-black border border-black/10 rounded-xl px-4 bg-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#03b6d4]/20 focus:border-[#03b6d4] transition-all",
-          if(@compact, do: "h-8 text-[0.72rem] rounded-lg", else: "h-11 text-[0.88rem]")
+          "zaq-control-combobox-trigger transition-colors",
+          if(@compact, do: "zaq-control-combobox-trigger--compact")
         ]}
       >
         <span data-select-label>
@@ -37,24 +86,28 @@ defmodule ZaqWeb.Components.SearchableSelect do
           end)}
         </span>
         <svg
-          class="w-4 h-4 shrink-0 text-black/30"
+          class="h-4 w-4 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          style="color: var(--zaq-text-color-body-tertiary)"
         >
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       <div
         data-select-panel
-        class="hidden absolute z-50 w-full bg-white border border-black/10 rounded-xl shadow-lg mt-1 overflow-hidden"
+        class="zaq-searchable-select-panel absolute z-50 mt-1 hidden w-full overflow-hidden"
       >
-        <div class="p-2 border-b border-black/[0.06]">
+        <div class="zaq-searchable-select-search-row">
           <input
             type="text"
             data-select-search
             placeholder={@placeholder}
-            class="w-full font-mono text-[0.82rem] text-black border border-black/10 rounded-lg h-9 px-3 bg-[#fafafa] placeholder:text-black/25 focus:outline-none focus:ring-2 focus:ring-[#03b6d4]/20 focus:border-[#03b6d4] transition-all"
+            class={[
+              "zaq-control-text w-full transition-colors zaq-text-body-sm",
+              if(@compact, do: "zaq-control-text--compact")
+            ]}
           />
         </div>
         <ul data-select-list class="max-h-52 overflow-y-auto py-1">
@@ -62,7 +115,7 @@ defmodule ZaqWeb.Components.SearchableSelect do
             :for={{label, value} <- @options}
             data-select-option={label}
             data-select-value={value}
-            class="font-mono text-[0.82rem] text-black px-4 py-2 cursor-pointer hover:bg-[#03b6d4]/10 transition-colors"
+            class="zaq-dropdown-menu-item zaq-dropdown-menu-item--padded"
           >
             {label}
           </li>
@@ -72,7 +125,7 @@ defmodule ZaqWeb.Components.SearchableSelect do
           type="button"
           data-select-create
           data-create-event={@on_create_event}
-          class="hidden w-full text-left font-mono text-[0.82rem] px-4 py-2.5 text-[#03b6d4] hover:bg-[#03b6d4]/10 transition-colors border-t border-black/[0.06]"
+          class="zaq-searchable-select-create hidden"
         >
           <span data-create-label></span>
         </button>

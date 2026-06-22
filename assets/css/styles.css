@@ -88,6 +88,12 @@
 
 /* ── Dropdown / menu item ─────────────────────────────────────────────────── */
 
+.zaq-dropdown-menu-item {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--zaq-text-color-body-default);
+}
+
 .zaq-dropdown-menu-item:hover {
   background: var(--zaq-surface-color-elevated);
 }
