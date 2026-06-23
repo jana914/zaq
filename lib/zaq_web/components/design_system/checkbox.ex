@@ -82,7 +82,9 @@ defmodule ZaqWeb.Components.DesignSystem.Checkbox do
             class={@checkbox_class}
             {@rest}
           />
-          <span class="zaq-checkbox-label-text">{@label}</span>
+          <span class="zaq-text-body-sm" style="color: var(--zaq-text-color-body-default)">
+            {@label}
+          </span>
         </label>
         <.field_error :for={msg <- @errors}>{msg}</.field_error>
       </div>
@@ -132,10 +134,7 @@ defmodule ZaqWeb.Components.DesignSystem.Checkbox do
 
   defp field_error(assigns) do
     ~H"""
-    <p
-      class="mt-1.5 flex gap-2 items-center zaq-text-body-sm"
-      style="color: var(--zaq-text-color-body-danger)"
-    >
+    <p class="zaq-field-error zaq-text-body-sm" style="color: var(--zaq-text-color-body-danger)">
       <.icon name="hero-exclamation-circle" class="size-5" />
       {render_slot(@inner_block)}
     </p>

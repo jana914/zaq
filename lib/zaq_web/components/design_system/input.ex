@@ -152,10 +152,7 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
 
   defp field_error(assigns) do
     ~H"""
-    <p
-      class="mt-1.5 flex gap-2 items-center zaq-text-body-sm"
-      style="color: var(--zaq-text-color-body-danger)"
-    >
+    <p class="zaq-field-error zaq-text-body-sm" style="color: var(--zaq-text-color-body-danger)">
       <.icon name="hero-exclamation-circle" class="size-5" />
       {render_slot(@inner_block)}
     </p>

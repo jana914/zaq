@@ -150,8 +150,8 @@ textarea.zaq-control-text {
   top: var(--zaq-scale-2);
   width: var(--zaq-scale-4);
   height: var(--zaq-scale-8);
-  border-right: var(--zaq-scale-2) solid var(--zaq-text-color-body-accent);
-  border-bottom: var(--zaq-scale-2) solid var(--zaq-text-color-body-accent);
+  border-right: var(--zaq-border-thickness-strong) solid var(--zaq-text-color-body-accent);
+  border-bottom: var(--zaq-border-thickness-strong) solid var(--zaq-text-color-body-accent);
   transform: rotate(45deg);
 }
 
@@ -169,17 +169,17 @@ textarea.zaq-control-text {
   width: fit-content;
 }
 
-.zaq-checkbox-label-text {
-  font-family: var(--zaq-font-family-body);
-  font-size: var(--zaq-scale-12);
-  font-weight: var(--zaq-font-weight-regular);
-  line-height: var(--zaq-line-height-relaxed);
-  color: var(--zaq-text-color-body-default);
-}
-
 .zaq-checkbox-bare {
   display: inline-flex;
   align-items: center;
+}
+
+/* Form field validation error row — DesignSystem.Checkbox, Input, SecretInput */
+.zaq-field-error {
+  display: flex;
+  align-items: center;
+  gap: var(--zaq-scale-8);
+  margin-top: var(--zaq-scale-8);
 }
 
 /* ── Dropdown / menu item ─────────────────────────────────────────────────── */
