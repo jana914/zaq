@@ -34,6 +34,7 @@
   "/storybook/components/file_preview/file_preview",
   "/storybook/components/file_preview/file_preview_modal",
   "/storybook/components/forms/button",
+  "/storybook/components/forms/checkbox",
   "/storybook/components/forms/input",
   "/storybook/components/forms/secret_input",
   "/storybook/components/forms/password_requirements",
