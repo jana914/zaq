@@ -32,7 +32,7 @@
 }
 
 .zaq-border-danger {
-  border:var(--zaq-border-color-danger) solid var(--zaq-border-thickness-default);
+  border:var(--zaq-border-color-danger) solid var(--zaq-border-thickness-strong);
 }
 
 /* Keyboard focus ring — add to any interactive control (buttons, links, custom inputs). */
@@ -88,6 +88,28 @@
 .zaq-bo-checkbox:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Labelled checkbox row — `DesignSystem.Checkbox` with `label` assign */
+.zaq-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zaq-scale-8);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.zaq-checkbox-label-text {
+  font-family: var(--zaq-font-family-body);
+  font-size: var(--zaq-scale-12);
+  font-weight: var(--zaq-font-weight-regular);
+  line-height: var(--zaq-line-height-relaxed);
+  color: var(--zaq-text-color-body-default);
+}
+
+.zaq-checkbox-bare {
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ── Dropdown / menu item ─────────────────────────────────────────────────── */

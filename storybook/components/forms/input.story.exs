@@ -5,7 +5,7 @@ defmodule Storybook.Components.Forms.Input do
 
   def description,
     do:
-      "Labelled text-like form input (ZAQ tokens). Text, email, number, etc. — textarea and checkbox are separate variations. Dropdowns: Select / SearchableSelect. Sensitive fields: SecretInput."
+      "Labelled text-like form input (ZAQ tokens). Text, email, number, etc. — textarea is a separate variation; boolean fields use Checkbox. Dropdowns: Select / SearchableSelect. Sensitive fields: SecretInput."
 
   def variations do
     [
@@ -55,32 +55,6 @@ defmodule Storybook.Components.Forms.Input do
               value: "",
               placeholder: "Tell us about yourself…",
               rows: "4"
-            }
-          }
-        ]
-      },
-      %VariationGroup{
-        id: :checkbox,
-        description: "Checkbox",
-        variations: [
-          %Variation{
-            id: :checkbox_off,
-            description: "Unchecked",
-            attributes: %{
-              name: "notify",
-              type: "checkbox",
-              label: "Email notifications",
-              value: false
-            }
-          },
-          %Variation{
-            id: :checkbox_on,
-            description: "Checked",
-            attributes: %{
-              name: "notify",
-              type: "checkbox",
-              label: "Email notifications",
-              value: true
             }
           }
         ]
