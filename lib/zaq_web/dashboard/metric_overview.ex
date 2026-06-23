@@ -6,6 +6,7 @@ defmodule ZaqWeb.Dashboard.MetricOverview do
   use Phoenix.Component
 
   import ZaqWeb.Components.BOTelemetryComponents, only: [metric_card: 1]
+  import ZaqWeb.Components.DesignSystem.Link, only: [nav_link: 1]
 
   attr :metric_cards, :list, required: true
 
@@ -21,32 +22,41 @@ defmodule ZaqWeb.Dashboard.MetricOverview do
           <.metric_card id={metric.id <> "-card"} card={metric} />
         </.link>
 
-        <.link
+        <.nav_link
           :if={metric.id == "dashboard-metric-documents-ingested"}
           id="dashboard-knowledge-base-metrics-link"
-          navigate="/bo/dashboard/knowledge-base-metrics"
-          class="inline-flex items-center gap-2 rounded-lg border border-[#03b6d4]/25 bg-white px-3 py-1.5 font-mono text-[0.68rem] font-semibold text-[#03b6d4] transition-colors hover:bg-[#03b6d4]/10"
+          destination="/bo/dashboard/knowledge-base-metrics"
+          tone={:accent}
+          size={:sm}
+          icon="hero-arrow-right"
+          icon_position={:right}
         >
-          View Knowledge base metrics <span class="text-[0.8rem]">-&gt;</span>
-        </.link>
+          View Knowledge base metrics
+        </.nav_link>
 
-        <.link
+        <.nav_link
           :if={metric.id == "dashboard-metric-llm-api-calls"}
           id="dashboard-llm-performance-link"
-          navigate="/bo/dashboard/llm-performance"
-          class="inline-flex items-center gap-2 rounded-lg border border-[#03b6d4]/25 bg-white px-3 py-1.5 font-mono text-[0.68rem] font-semibold text-[#03b6d4] transition-colors hover:bg-[#03b6d4]/10"
+          destination="/bo/dashboard/llm-performance"
+          tone={:accent}
+          size={:sm}
+          icon="hero-arrow-right"
+          icon_position={:right}
         >
-          View LLM performance <span class="text-[0.8rem]">-&gt;</span>
-        </.link>
+          View LLM performance
+        </.nav_link>
 
-        <.link
+        <.nav_link
           :if={metric.id == "dashboard-metric-qa-response-time"}
           id="dashboard-conversations-metrics-link"
-          navigate="/bo/dashboard/conversations-metrics"
-          class="inline-flex items-center gap-2 rounded-lg border border-[#03b6d4]/25 bg-white px-3 py-1.5 font-mono text-[0.68rem] font-semibold text-[#03b6d4] transition-colors hover:bg-[#03b6d4]/10"
+          destination="/bo/dashboard/conversations-metrics"
+          tone={:accent}
+          size={:sm}
+          icon="hero-arrow-right"
+          icon_position={:right}
         >
-          View Conversations metrics <span class="text-[0.8rem]">-&gt;</span>
-        </.link>
+          View Conversations metrics
+        </.nav_link>
       </div>
     </div>
     """
