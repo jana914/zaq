@@ -126,7 +126,7 @@
   padding: var(--zaq-scale-10) var(--zaq-scale-16);
   margin-bottom: var(--zaq-scale-12);
   border-radius: var(--zaq-card-radius-default);
-  background: var(--zaq-surface-color-base);
+  background: var(--zaq-surface-color-raised);
   border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
 }
 
@@ -134,6 +134,14 @@
   display: flex;
   align-items: center;
   gap: var(--zaq-layout-inline-gap);
+}
+
+/* List panel footer — `ZaqWeb.Components.DesignSystem.SimplePagination` */
+.zaq-simple-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--zaq-scale-12) var(--zaq-scale-20);
 }
 
 /* ── File name: open preview (default → accent on hover) ─ */
