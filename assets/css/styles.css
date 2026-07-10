@@ -560,6 +560,19 @@ a.zaq-link:focus-visible .zaq-link-underline {
   color: var(--zaq-text-color-body-secondary);
 }
 
+.zaq-toggle-segment--with-label {
+  gap: var(--zaq-scale-4);
+  padding-inline: var(--zaq-scale-16);
+}
+
+.zaq-toggle-segment--text-only {
+  padding-inline: var(--zaq-scale-16);
+}
+
+.zaq-toggle-segment-label {
+  white-space: nowrap;
+}
+
 /* Pill group: stadium corners on segments so the raised active fill matches the track (after base `.zaq-toggle-segment` so radius wins). */
 .zaq-toggle-group-pill > .zaq-toggle-segment {
   flex: 1 1 0;
