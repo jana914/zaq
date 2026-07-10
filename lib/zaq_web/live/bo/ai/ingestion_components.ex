@@ -63,8 +63,13 @@ defmodule ZaqWeb.Live.BO.AI.IngestionComponents do
     Breadcrumb.breadcrumb(assigns)
   end
 
-  attr :view_mode, :string, required: true
-  attr :entries, :list, required: true
+  attr :value, :string, required: true
+  attr :choices, :list, required: true
+  attr :event, :string, required: true
+  attr :value_param, :string, default: "value"
+  attr :variant, :atom, default: :default, values: [:default, :pill]
+  attr :suffix, :string, default: nil
+  attr :class, :any, default: nil
 
   def toggle(assigns) do
     Toggle.toggle(assigns)
