@@ -3,6 +3,17 @@
    Loaded via @import in styles.css (semantics.css already applied in app.css).
    ───────────────────────────────────────────────────────────────────────────── */
 
+/* Viewport overlay — centers panel with page inset (BOModal.modal_shell) */
+.zaq-bo-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--zaq-scale-16);
+}
+
 /* Full-bleed scrim behind modal panel */
 .zaq-bo-modal-backdrop {
   position: absolute;
@@ -28,6 +39,81 @@
 /* Edge-to-edge layout inside the panel (e.g. file preview toolbar + scroll region) */
 .zaq-modal--flush {
   padding: 0;
+}
+
+/* Form dialog — flex column + viewport-safe height (compose with .zaq-modal--flush) */
+.zaq-modal--form {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+/* Panel max-width presets — BOModal `max_width_class` */
+.zaq-modal--width-sm {
+  max-width: 24rem;
+}
+
+.zaq-modal--width-md {
+  max-width: 28rem;
+}
+
+.zaq-modal--width-lg {
+  max-width: 32rem;
+}
+
+.zaq-modal--width-xl {
+  max-width: 36rem;
+}
+
+.zaq-modal--width-2xl {
+  max-width: 42rem;
+}
+
+.zaq-modal--width-3xl {
+  max-width: 48rem;
+}
+
+.zaq-modal--width-4xl {
+  max-width: 56rem;
+}
+
+.zaq-modal--width-6xl {
+  max-width: 72rem;
+}
+
+/* Form dialog regions (BOModal.form_dialog) */
+.zaq-modal-form-header {
+  position: relative;
+  flex-shrink: 0;
+  padding: var(--zaq-scale-16) var(--zaq-scale-24);
+  border-bottom: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+}
+
+.zaq-modal-form-close {
+  position: absolute;
+  right: var(--zaq-scale-16);
+  top: var(--zaq-scale-16);
+}
+
+.zaq-modal-form-body {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--zaq-scale-16) var(--zaq-scale-24);
+}
+
+.zaq-modal-form-footer {
+  flex-shrink: 0;
+  padding: var(--zaq-scale-16) var(--zaq-scale-24);
+  border-top: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+  background: var(--zaq-surface-color-raised);
+}
+
+.zaq-modal-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--zaq-layout-stack-gap);
 }
 
 /* Destructive confirm dialog — centered copy + icon badge (BOModal.confirm_dialog) */

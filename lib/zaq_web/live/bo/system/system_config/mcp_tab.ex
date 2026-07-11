@@ -167,7 +167,7 @@ defmodule ZaqWeb.Live.BO.System.SystemConfig.MCPTab do
       id="mcp-endpoint-modal"
       cancel_event="close_mcp_endpoint_modal"
       title={if @action == :edit, do: "Edit MCP Endpoint", else: "New MCP Endpoint"}
-      max_width_class="max-w-3xl"
+      max_width_class="zaq-modal--width-3xl"
     >
       <.form
         id="mcp-endpoint-form"

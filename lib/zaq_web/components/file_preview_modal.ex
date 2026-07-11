@@ -14,7 +14,7 @@ defmodule ZaqWeb.Components.FilePreviewModal do
     <ZaqWeb.Components.BOModal.modal_shell
       id={@id}
       cancel_event={@cancel_event}
-      max_width_class="max-w-6xl"
+      max_width_class="zaq-modal--width-6xl"
       panel_base_class="zaq-modal zaq-modal--flush"
     >
       <div class="zaq-file-preview-bar justify-between">

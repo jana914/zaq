@@ -3,6 +3,7 @@ defmodule ZaqWeb.Components.BOModalTest do
 
   import Phoenix.Component
   import Phoenix.LiveViewTest
+  import ZaqWeb.Components.DesignSystem.Button
 
   alias ZaqWeb.Components.BOModal
 
@@ -40,7 +41,8 @@ defmodule ZaqWeb.Components.BOModalTest do
     assert html =~ "phx-window-keydown=\"close_modal\""
     assert html =~ "phx-key=\"Escape\""
     assert html =~ "phx-click=\"close_modal\""
-    assert html =~ "max-w-sm"
+    assert html =~ "zaq-modal--width-sm"
+    assert html =~ "zaq-bo-modal-overlay"
     assert html =~ "zaq-bo-modal-backdrop"
     assert html =~ "zaq-modal"
     assert html =~ "Inner content"
@@ -58,8 +60,8 @@ defmodule ZaqWeb.Components.BOModalTest do
         >
           <div>Form body</div>
           <:actions>
-            <button type="button">Cancel</button>
-            <button type="submit">Save</button>
+            <.button variant={:secondary} phx-click="cancel_form">Cancel</.button>
+            <.button variant={:primary} type="submit">Save</.button>
           </:actions>
         </BOModal.form_dialog>
         """
@@ -73,10 +75,14 @@ defmodule ZaqWeb.Components.BOModalTest do
     assert html =~ ~s(aria-labelledby="form-modal-title")
     assert html =~ ~s(id="form-modal-title")
     assert html =~ "aria-label=\"Close dialog\""
-    assert html =~ "max-h-[90vh]"
+    assert html =~ "zaq-modal--form"
+    assert html =~ "zaq-btn-icon"
+    assert html =~ "hero-x-mark"
     assert html =~ "custom-body"
     assert html =~ "Form body"
     assert html =~ "Save"
+    assert html =~ "zaq-btn-primary"
+    assert html =~ "zaq-btn-secondary"
   end
 
   test "form_dialog omits actions container when no actions slot is provided" do
@@ -90,7 +96,7 @@ defmodule ZaqWeb.Components.BOModalTest do
       end)
 
     assert html =~ "Body only"
-    refute html =~ "justify-end"
+    refute html =~ "zaq-modal-form-footer"
     assert html =~ ~s(role="dialog")
     assert html =~ ~s(aria-modal="true")
     assert html =~ ~s(aria-label="No Actions")
