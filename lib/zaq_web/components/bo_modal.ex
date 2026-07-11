@@ -6,14 +6,16 @@ defmodule ZaqWeb.Components.BOModal do
     `zaq-modal`). Override `backdrop_class` / `panel_base_class` only for exceptions; use
     `panel_base_class="zaq-modal zaq-modal--flush"` when inner chrome provides its own padding.
   - `form_dialog/1` is the default for BO add/edit dialogs and enforces viewport-safe
-    max height with internal scrolling.
+    max height with internal scrolling. Pass `DesignSystem.Button` components in the `:actions` slot.
   """
 
   use ZaqWeb, :html
 
+  alias ZaqWeb.Components.DesignSystem.Button, as: DSButton
+
   attr :id, :string, default: nil
   attr :cancel_event, :string, required: true
-  attr :max_width_class, :string, default: "max-w-sm"
+  attr :max_width_class, :string, default: "zaq-modal--width-sm"
   attr :panel_class, :string, default: ""
   attr :backdrop_class, :string, default: "zaq-bo-modal-backdrop"
   attr :panel_base_class, :string, default: "zaq-modal"
@@ -25,7 +27,7 @@ defmodule ZaqWeb.Components.BOModal do
     ~H"""
     <div
       id={@id}
-      class="fixed inset-0 z-50 flex items-center justify-center p-4"
+      class="zaq-bo-modal-overlay"
       phx-window-keydown={@cancel_event}
       phx-key="Escape"
       {@rest}
@@ -49,7 +51,7 @@ defmodule ZaqWeb.Components.BOModal do
   attr :message, :string, required: true
   attr :confirm_label, :string, default: "Delete"
   attr :cancel_label, :string, default: "Cancel"
-  attr :max_width_class, :string, default: "max-w-sm"
+  attr :max_width_class, :string, default: "zaq-modal--width-sm"
   attr :confirm_button_id, :string, default: nil
   attr :confirm_value_id, :string, default: nil
 
@@ -95,7 +97,7 @@ defmodule ZaqWeb.Components.BOModal do
   attr :id, :string, default: nil
   attr :cancel_event, :string, required: true
   attr :title, :string, required: true
-  attr :max_width_class, :string, default: "max-w-3xl"
+  attr :max_width_class, :string, default: "zaq-modal--width-3xl"
   attr :panel_class, :string, default: ""
   attr :body_class, :string, default: ""
   attr :rest, :global
@@ -106,48 +108,46 @@ defmodule ZaqWeb.Components.BOModal do
     assigns = assign(assigns, :form_dialog_title_id, form_dialog_title_id(assigns.id))
 
     ~H"""
-    <div
+    <.modal_shell
       id={@id}
+      cancel_event={@cancel_event}
+      max_width_class={@max_width_class}
+      panel_base_class="zaq-modal zaq-modal--flush zaq-modal--form"
+      panel_class={@panel_class}
       role="dialog"
       aria-modal="true"
       aria-labelledby={@form_dialog_title_id}
       aria-label={if(@form_dialog_title_id, do: nil, else: @title)}
-      class="fixed inset-0 z-50 flex items-center justify-center p-4"
-      phx-window-keydown={@cancel_event}
-      phx-key="Escape"
       {@rest}
     >
-      <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" phx-click={@cancel_event}></div>
-      <div class={[
-        "relative w-full rounded-2xl border border-black/10 bg-white shadow-2xl max-h-[90vh] overflow-hidden flex flex-col",
-        @max_width_class,
-        @panel_class
-      ]}>
-        <div class="shrink-0 border-b border-black/[0.08] px-6 py-5">
-          <h3 id={@form_dialog_title_id} class="font-mono text-[0.95rem] font-bold text-black">
-            {@title}
-          </h3>
-          <button
-            type="button"
-            phx-click={@cancel_event}
-            aria-label="Close dialog"
-            class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 text-black/50 hover:bg-black/[0.04] hover:text-black/70"
-          >
-            <.icon name="hero-x-mark" class="h-4 w-4" />
-          </button>
-        </div>
+      <div class="zaq-modal-form-header">
+        <h3
+          id={@form_dialog_title_id}
+          class="zaq-text-h3"
+          style="color: var(--zaq-text-color-body-default)"
+        >
+          {@title}
+        </h3>
+        <DSButton.button
+          variant={:secondary}
+          icon="hero-x-mark"
+          icon_only
+          aria-label="Close dialog"
+          phx-click={@cancel_event}
+          class="zaq-modal-form-close"
+        />
+      </div>
 
-        <div class={["min-h-0 flex-1 overflow-y-auto px-6 py-5", @body_class]}>
-          {render_slot(@inner_block)}
-        </div>
+      <div class={["zaq-modal-form-body", @body_class]}>
+        {render_slot(@inner_block)}
+      </div>
 
-        <div :if={@actions != []} class="shrink-0 border-t border-black/[0.08] bg-white px-6 py-4">
-          <div class="flex items-center justify-end gap-3">
-            {render_slot(@actions)}
-          </div>
+      <div :if={@actions != []} class="zaq-modal-form-footer">
+        <div class="zaq-modal-form-actions">
+          {render_slot(@actions)}
         </div>
       </div>
-    </div>
+    </.modal_shell>
     """
   end
 
@@ -155,7 +155,7 @@ defmodule ZaqWeb.Components.BOModal do
   attr :cancel_event, :string, required: true
   attr :title, :string, required: true
   attr :src, :string, required: true
-  attr :max_width_class, :string, default: "max-w-4xl"
+  attr :max_width_class, :string, default: "zaq-modal--width-4xl"
   attr :height_class, :string, default: "h-[75vh]"
 
   def iframe_dialog(assigns) do

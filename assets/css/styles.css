@@ -1234,3 +1234,8 @@ a.zaq-chat-source-row:focus-visible {
 .zaq-cap-remove:hover {
   background-color: var(--zaq-surface-color-elevated);
 }
+
+/* Storybook modal preview — contain overlay inside bounded frames */
+.zaq-modal-preview .zaq-bo-modal-overlay {
+  position: absolute !important;
+}

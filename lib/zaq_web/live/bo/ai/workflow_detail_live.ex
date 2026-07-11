@@ -557,7 +557,7 @@ defmodule ZaqWeb.Live.BO.AI.WorkflowDetailLive do
         id="edit-workflow-modal"
         title="Edit Workflow"
         cancel_event="cancel_edit"
-        max_width_class="max-w-lg"
+        max_width_class="zaq-modal--width-lg"
       >
         <form phx-submit="save_edit" class="space-y-4">
           <div>

@@ -242,7 +242,7 @@
     id="folder-info-modal"
     cancel_event="close_folder_info"
     title="Folder info"
-    max_width_class="max-w-lg"
+    max_width_class="zaq-modal--width-lg"
   >
     <% folder = selected_folder_info(@folder_info_modal) %>
     <div class="space-y-2 font-mono text-[0.73rem] text-black/75">
@@ -309,7 +309,7 @@
     id="data-source-config-modal"
     cancel_event="close_modal"
     title={if @modal == :new, do: "New Data Source Config", else: "Edit Data Source Config"}
-    max_width_class="max-w-2xl"
+    max_width_class="zaq-modal--width-2xl"
   >
     <% claim = oauth_claim_state_for_changeset(@changeset) %>
     <.form for={@form} id="config-form" phx-submit="save" phx-change="validate">
@@ -504,7 +504,7 @@
     id="new-credential-modal"
     cancel_event="close_credential_modal"
     title="New Credential"
-    max_width_class="max-w-lg"
+    max_width_class="zaq-modal--width-lg"
   >
     <ZaqWeb.Components.ConnectCredentialForm.credential_form
       :if={@credential_form}
@@ -525,7 +525,7 @@
     id="oauth-claim-modal"
     cancel_event="close_oauth_claim"
     title="Claim OAuth2 Grant"
-    max_width_class="max-w-lg"
+    max_width_class="zaq-modal--width-lg"
   >
     <div class="space-y-2">
       <p class="font-mono text-[0.75rem] text-black/70">

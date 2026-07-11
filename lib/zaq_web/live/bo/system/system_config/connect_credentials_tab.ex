@@ -74,7 +74,7 @@ defmodule ZaqWeb.Live.BO.System.SystemConfig.ConnectCredentialsTab do
           do: "Grants — #{@selected_credential.name}",
           else: "Grants"
       }
-      max_width_class="max-w-3xl"
+      max_width_class="zaq-modal--width-3xl"
     >
       <div :if={@selected_grants == []} class="py-8 text-center">
         <p class="font-mono text-[0.8rem] text-black/50">No grants for this credential.</p>
@@ -133,7 +133,7 @@ defmodule ZaqWeb.Live.BO.System.SystemConfig.ConnectCredentialsTab do
       id="edit-connect-credential-modal"
       cancel_event="close_connect_credential_modal"
       title="Edit Credential"
-      max_width_class="max-w-lg"
+      max_width_class="zaq-modal--width-lg"
     >
       <ConnectCredentialForm.credential_form
         :if={@credential_form}

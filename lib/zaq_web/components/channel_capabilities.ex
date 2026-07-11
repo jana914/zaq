@@ -31,7 +31,7 @@ defmodule ZaqWeb.Components.ChannelCapabilities do
       id="capabilities-modal"
       cancel_event={@close_event}
       title="Capabilities"
-      max_width_class="max-w-lg"
+      max_width_class="zaq-modal--width-lg"
     >
       <div class="space-y-3">
         <p class="font-mono text-[0.75rem] text-black/65">{@title}</p>

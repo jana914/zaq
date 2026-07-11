@@ -18,7 +18,7 @@ defmodule ZaqWeb.Components.DesignSystem.ModalUpload do
       id="upload-modal"
       cancel_event="close_modal"
       title="Upload data"
-      max_width_class="max-w-xl"
+      max_width_class="zaq-modal--width-xl"
     >
       <.upload_section
         uploads={@uploads}

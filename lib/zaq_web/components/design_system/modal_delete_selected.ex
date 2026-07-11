@@ -17,7 +17,7 @@ defmodule ZaqWeb.Components.DesignSystem.ModalDeleteSelected do
       confirm_event="confirm_delete_selected"
       confirm_label={"Delete All (#{MapSet.size(@selected)})"}
       confirm_button_id="confirm-delete-selected-button"
-      max_width_class="max-w-md"
+      max_width_class="zaq-modal--width-md"
     />
     """
   end
