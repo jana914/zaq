@@ -49,7 +49,11 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     })
     |> render_submit()
 
-    assert has_element?(view, "div.alert-error span", "Passwords do not match")
+    assert has_element?(
+             view,
+             "#change-password-error .zaq-feedback-body",
+             "Passwords do not match"
+           )
   end
 
   test "shows changeset error when new password is too short", %{conn: conn} do
@@ -70,7 +74,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
 
     assert has_element?(
              view,
-             "div.alert-error span",
+             "#change-password-error .zaq-feedback-body",
              "should be at least 8 character(s)"
            )
   end
@@ -177,7 +181,7 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     |> render_submit()
 
     # Caught server-side up front: inline error, and the consent modal is not shown.
-    assert has_element?(view, "div.alert-error span", "Email can't be blank")
+    assert has_element?(view, "#change-password-error .zaq-feedback-body", "Email can't be blank")
     refute has_element?(view, ~s(button[phx-click="accept_portal_consent"]))
 
     # Nothing was persisted — the account still has no email.
@@ -202,7 +206,11 @@ defmodule ZaqWeb.Live.BO.System.ChangePasswordLiveTest do
     assert render_async(view) =~ "To create your ZAQ account..."
     render_click(view, "accept_portal_consent")
 
-    assert has_element?(view, "div.alert-error span", "must be a valid email address")
+    assert has_element?(
+             view,
+             "#change-password-error .zaq-feedback-body",
+             "must be a valid email address"
+           )
   end
 
   test "updates password and email then redirects when email is missing", %{conn: conn} do
