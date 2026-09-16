@@ -1,6 +1,8 @@
 defmodule Storybook.Components.Forms.PasswordRequirements do
   use PhoenixStorybook.Story, :component
 
+  alias Zaq.Accounts.PasswordPolicy
+
   def function, do: &ZaqWeb.Components.PasswordPolicyComponents.password_requirements/1
 
   def description,
@@ -17,36 +19,21 @@ defmodule Storybook.Components.Forms.PasswordRequirements do
             id: :empty,
             description: "No password entered",
             attributes: %{
-              requirements: [
-                %{id: "length", label: "At least 8 characters", met?: false},
-                %{id: "uppercase", label: "One uppercase letter", met?: false},
-                %{id: "number", label: "One number", met?: false},
-                %{id: "special", label: "One special character", met?: false}
-              ]
+              requirements: PasswordPolicy.requirements_with_status("")
             }
           },
           %Variation{
             id: :partial,
             description: "Partial requirements met",
             attributes: %{
-              requirements: [
-                %{id: "length", label: "At least 8 characters", met?: false},
-                %{id: "uppercase", label: "One uppercase letter", met?: true},
-                %{id: "number", label: "One number", met?: true},
-                %{id: "special", label: "One special character", met?: false}
-              ]
+              requirements: PasswordPolicy.requirements_with_status("Strong1")
             }
           },
           %Variation{
             id: :all_met,
             description: "All requirements met",
             attributes: %{
-              requirements: [
-                %{id: "length", label: "At least 8 characters", met?: true},
-                %{id: "uppercase", label: "One uppercase letter", met?: true},
-                %{id: "number", label: "One number", met?: true},
-                %{id: "special", label: "One special character", met?: true}
-              ]
+              requirements: PasswordPolicy.requirements_with_status("StrongPass1!")
             }
           }
         ]

@@ -11,33 +11,36 @@ defmodule ZaqWeb.Components.PasswordPolicyComponents do
 
   attr :requirements, :list, required: true
 
+  attr :id, :string,
+    default: "password-requirements",
+    doc: "Root element id for tests and anchors."
+
+  attr :title, :string, default: "Password Requirements", doc: "Section heading copy."
+
+  attr :class, :any,
+    default: nil,
+    doc: "Optional layout utilities merged onto the panel wrapper (not colors)."
+
   @doc "Renders the password requirements checklist with pass/fail state."
   def password_requirements(assigns) do
     ~H"""
-    <div
-      id="password-requirements"
-      class="mt-3 rounded-xl border border-black/[0.06] bg-[#fafafa] px-4 py-3"
-    >
-      <p class="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-black/40">
-        Password Requirements
+    <div id={@id} class={["zaq-password-requirements", @class]}>
+      <p class="zaq-field-label-uppercase">
+        {@title}
       </p>
-      <ul class="mt-3 space-y-2">
+      <ul class="zaq-password-requirements__list">
         <li
           :for={requirement <- @requirements}
           id={"password-requirement-#{requirement.id}"}
           class={[
-            "flex items-center gap-2 font-mono text-[0.72rem] transition-colors",
-            requirement.met? && "text-emerald-600",
-            !requirement.met? && "text-black/40"
+            "zaq-password-requirements__row zaq-text-body-sm",
+            requirement.met? && "zaq-password-requirements__row--met",
+            !requirement.met? && "zaq-password-requirements__row--unmet"
           ]}
         >
           <.icon
             name={if(requirement.met?, do: "hero-check-circle", else: "hero-x-circle")}
-            class={[
-              "h-4 w-4 shrink-0",
-              requirement.met? && "text-emerald-500",
-              !requirement.met? && "text-black/20"
-            ]}
+            class="zaq-icon-sm"
           />
           <span>{requirement.label}</span>
         </li>

@@ -4,6 +4,7 @@ defmodule ZaqWeb.Live.BO.System.ResetPasswordLive do
   alias Zaq.Accounts
   alias Zaq.Accounts.PasswordPolicy
   alias ZaqWeb.ChangesetErrors
+  alias ZaqWeb.Components.DesignSystem.SecretInput, as: DSSecretInput
   alias ZaqWeb.Helpers.PasswordHelpers
 
   def mount(%{"token" => token}, _session, socket) do

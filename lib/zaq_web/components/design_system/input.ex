@@ -10,9 +10,10 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
 
   use Phoenix.Component
 
-  import ZaqWeb.CoreComponents, only: [icon: 1]
+  use ZaqWeb.Components.DesignSystem.FieldControlAttrs
 
   alias Phoenix.HTML.Form
+  alias ZaqWeb.Components.DesignSystem.FieldHint
 
   @doc """
   Renders an input with label and error messages.
@@ -36,6 +37,7 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
     doc: "a form field struct retrieved from the form, for example: @form[:email]"
 
   attr :errors, :list, default: []
+
   attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
 
   attr :multiple, :boolean,
@@ -96,7 +98,12 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
           />{@label}
         </span>
       </label>
-      <.field_error :for={msg <- @errors}>{msg}</.field_error>
+      <FieldHint.field_messages
+        errors={@errors}
+        hint={@hint}
+        hint_tone={@hint_tone}
+        hint_id={@hint_id}
+      />
     </div>
     """
   end
@@ -105,7 +112,14 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
     assigns = assign_new(assigns, :value, fn -> nil end)
 
     ~H"""
-    <.input_shell label={@label} errors={@errors} field_id={@id}>
+    <.input_shell
+      label={@label}
+      errors={@errors}
+      hint={@hint}
+      hint_tone={@hint_tone}
+      hint_id={@hint_id}
+      field_id={@id}
+    >
       <:field>
         <textarea
           id={@id}
@@ -122,7 +136,14 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
     assigns = assign_new(assigns, :value, fn -> nil end)
 
     ~H"""
-    <.input_shell label={@label} errors={@errors} field_id={@id}>
+    <.input_shell
+      label={@label}
+      errors={@errors}
+      hint={@hint}
+      hint_tone={@hint_tone}
+      hint_id={@hint_id}
+      field_id={@id}
+    >
       <:field>
         <input
           type={@type}
@@ -139,6 +160,9 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
 
   attr :label, :string, default: nil
   attr :errors, :list, default: []
+  attr :hint, :string, default: nil
+  attr :hint_tone, :atom, default: :info
+  attr :hint_id, :string, default: nil
   attr :field_id, :any, default: nil
   slot :field, required: true
 
@@ -149,19 +173,13 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
         {@label}
       </label>
       {render_slot(@field)}
-      <.field_error :for={msg <- @errors}>{msg}</.field_error>
+      <FieldHint.field_messages
+        errors={@errors}
+        hint={@hint}
+        hint_tone={@hint_tone}
+        hint_id={@hint_id}
+      />
     </div>
-    """
-  end
-
-  slot :inner_block, required: true
-
-  defp field_error(assigns) do
-    ~H"""
-    <p class="zaq-field-error zaq-text-body-sm" style="color: var(--zaq-text-color-body-danger)">
-      <.icon name="hero-exclamation-circle" class="size-5" />
-      {render_slot(@inner_block)}
-    </p>
     """
   end
 
