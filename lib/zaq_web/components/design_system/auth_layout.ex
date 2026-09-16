@@ -4,11 +4,18 @@ defmodule ZaqWeb.Components.DesignSystem.AuthLayout do
 
   Provides the full-viewport layout, card chrome, and brand header band.
   Page-specific content goes in `:inner_block`; optional `:footer` for copyright.
+
+  Pass `heading` to replace the default “ZAQ / Back Office” title (e.g. change password).
   """
 
   use Phoenix.Component
 
   attr :subtitle, :string, required: true
+
+  attr :heading, :string,
+    default: nil,
+    doc:
+      "Optional page title. When set, replaces the default “ZAQ / Back Office” heading (login, forgot password, change password, etc.)."
 
   slot :header_icon, required: true
   slot :inner_block, required: true
@@ -26,7 +33,11 @@ defmodule ZaqWeb.Components.DesignSystem.AuthLayout do
               {render_slot(@header_icon)}
             </div>
             <h1 class="zaq-text-h2 uppercase" style="color: var(--zaq-text-color-body-default)">
-              ZAQ <span style="color: var(--zaq-text-color-body-accent)">Back Office</span>
+              <%= if @heading do %>
+                {@heading}
+              <% else %>
+                ZAQ <span style="color: var(--zaq-text-color-body-accent)">Back Office</span>
+              <% end %>
             </h1>
             <p class="zaq-field-label-uppercase zaq-auth-card-subtitle uppercase">
               {@subtitle}

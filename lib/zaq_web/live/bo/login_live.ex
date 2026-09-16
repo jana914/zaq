@@ -2,14 +2,10 @@
 
 defmodule ZaqWeb.Live.BO.LoginLive do
   use ZaqWeb, :live_view
+  use ZaqWeb.Live.BO.AuthLive
 
   alias Zaq.Accounts
-  alias ZaqWeb.Components.DesignSystem.AuthLayout
-  alias ZaqWeb.Components.DesignSystem.Button, as: DSButton
   alias ZaqWeb.Components.DesignSystem.Checkbox, as: DSCheckbox
-  alias ZaqWeb.Components.DesignSystem.Input, as: DSInput
-  alias ZaqWeb.Components.DesignSystem.Link, as: DSLink
-  alias ZaqWeb.Components.DesignSystem.SecretInput, as: DSSecretInput
 
   def mount(_params, session, socket) do
     case session["user_id"] do

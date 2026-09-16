@@ -1,5 +1,6 @@
 defmodule ZaqWeb.Live.BO.System.ChangePasswordLive do
   use ZaqWeb, :live_view
+  use ZaqWeb.Live.BO.AuthLive
 
   import Zaq.Helpers, only: [blank?: 1]
 

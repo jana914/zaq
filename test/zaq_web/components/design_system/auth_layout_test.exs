@@ -21,6 +21,19 @@ defmodule ZaqWeb.Components.DesignSystem.AuthLayoutTest do
     assert html =~ "BODY"
   end
 
+  test "auth_layout/1 renders custom heading when set" do
+    html =
+      render_component(&AuthLayout.auth_layout/1,
+        heading: "Change Password",
+        subtitle: "You must set a new password before continuing",
+        header_icon: [%{inner_block: fn _, _ -> "ICON" end}],
+        inner_block: [%{inner_block: fn _, _ -> "BODY" end}]
+      )
+
+    assert html =~ "Change Password"
+    refute html =~ "Back Office"
+  end
+
   test "auth_layout/1 renders optional footer slot" do
     html =
       render_component(&AuthLayout.auth_layout/1,
