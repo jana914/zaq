@@ -161,7 +161,8 @@ defmodule ZaqWeb.Components.DesignSystem.Input do
 
   defp text_control_classes(assigns) do
     [
-      assigns[:class] || "w-full zaq-control-text",
+      "w-full zaq-control-text",
+      assigns[:class],
       assigns[:errors] != [] && (assigns[:error_class] || "zaq-border-danger")
     ]
   end

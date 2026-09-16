@@ -63,6 +63,18 @@ defmodule ZaqWeb.Components.DesignSystem.InputTest do
     assert textarea_html =~ "too short"
   end
 
+  test "input/1 keeps zaq-control-text when class is passed" do
+    html =
+      render_component(&Input.input/1,
+        type: "text",
+        name: "username",
+        class: "w-full"
+      )
+
+    assert html =~ "zaq-control-text"
+    assert html =~ "w-full"
+  end
+
   test "input/1 with form field supports multiple names" do
     form = Phoenix.Component.to_form(%{"tags" => ["elixir"]}, as: :filters)
 

@@ -1,103 +1,74 @@
-<div class="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
+<AuthLayout.auth_layout subtitle="Authorization Required">
+  <:header_icon>
+    <img src={~p"/images/zaq.png"} alt="ZAQ" class="zaq-auth-logo-img" />
+  </:header_icon>
+
   <div
-    class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
-    style="background-image: radial-gradient(#2D3E50 1px, transparent 1px); background-size: 24px 24px;"
+    :if={Phoenix.Flash.get(@flash, :error)}
+    id="auth-login-error"
+    class="zaq-feedback-banner zaq-danger zaq-text-body zaq-feedback-banner--shake"
   >
+    <span class="zaq-feedback-icon">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" /><path d="M12 8v4m0 4h.01" />
+      </svg>
+    </span>
+    <span class="zaq-feedback-body">{Phoenix.Flash.get(@flash, :error)}</span>
   </div>
 
-  <div class="w-full max-w-[400px] mx-6 z-10">
-    <div class="bg-white rounded-2xl shadow-[0_20px_50px_rgba(45,62,80,0.1)] border border-slate-100 overflow-hidden">
-      <div class="bg-[#2D3E50] p-8 text-center">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 mb-4 backdrop-blur-sm">
-          <img src={~p"/images/zaq.png"} alt="ZAQ" class="w-10 h-auto " />
-        </div>
-        <h1 class="text-white text-xl font-bold tracking-tight uppercase">
-          ZAQ <span class="text-cyan-400">Back Office</span>
-        </h1>
-        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-2">
-          Authorization Required
-        </p>
-      </div>
+  <.form
+    for={@form}
+    id="bo-login-form"
+    action={~p"/bo/session"}
+    method="post"
+    phx-change="validate"
+    class="zaq-layout-stack"
+  >
+    <DSInput.input
+      name="username"
+      label="Username or Email"
+      value={@form[:username].value}
+      required
+      placeholder="username or email"
+    />
 
-      <div class="p-8 md:p-10">
-        <div
-          :if={Phoenix.Flash.get(@flash, :error)}
-          class="mb-6 flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs animate-shake"
-        >
-          <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-          <p class="font-bold uppercase tracking-wider">{Phoenix.Flash.get(@flash, :error)}</p>
-        </div>
+    <DSSecretInput.secret_input
+      id="login-password"
+      name="password"
+      label="Password"
+      value={@form[:password].value}
+      required
+      placeholder="••••••••"
+    />
 
-        <.form
-          for={@form}
-          id="bo-login-form"
-          action={~p"/bo/session"}
-          method="post"
-          phx-change="validate"
-          class="space-y-5"
-        >
-          <div class="space-y-1">
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">
-              Username or Email
-            </label>
-            <div class="relative group">
-              <input
-                type="text"
-                name="username"
-                value={@form[:username].value}
-                required
-                placeholder="username or email"
-                class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all text-sm"
-              />
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">
-              Password
-            </label>
-            <.secret_input
-              id="login-password"
-              name="password"
-              value={@form[:password].value}
-              required
-              placeholder="••••••••"
-              input_class="block w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 pr-12 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all text-sm"
-              button_class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-none"
-            />
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] font-bold">
-            <label class="flex items-center cursor-pointer text-slate-500 hover:text-[#2D3E50] transition-colors">
-              <input
-                type="checkbox"
-                name="remember"
-                class="mr-2 w-4 h-4 rounded border-slate-300 text-cyan-500 focus:ring-cyan-500/20"
-              /> KEEP ME LOGGED IN
-            </label>
-            <a
-              href={~p"/bo/forgot-password"}
-              class="text-cyan-500 hover:text-cyan-600 uppercase tracking-widest transition-colors"
-            >
-              Forgot password?
-            </a>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold uppercase tracking-widest text-xs py-4 rounded-xl shadow-lg shadow-cyan-500/30 transition-all active:scale-[0.98]"
-          >
-            Sign In to Dashboard
-          </button>
-        </.form>
-      </div>
+    <div class="zaq-auth-form-actions">
+      <DSCheckbox.checkbox
+        name="remember"
+        label="KEEP ME LOGGED IN"
+        form_hidden={false}
+        class="zaq-bo-checkbox zaq-focus-visible"
+      />
+      <DSLink.nav_link
+        destination={~p"/bo/forgot-password"}
+        tone={:accent}
+        external={true}
+        size={:sm}
+      >
+        Forgot password?
+      </DSLink.nav_link>
     </div>
 
-    <div class="mt-8 text-center">
-      <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase">
-        ZAQ Back Office &copy; {Date.utc_today().year} |
-        <a href="https://zaq.ai" target="_blank" class="text-cyan-500 hover:underline">zaq.ai</a>
-      </p>
-    </div>
-  </div>
-</div>
+    <DSButton.button type="submit" variant={:primary} class="w-full uppercase">
+      Sign In to Dashboard
+    </DSButton.button>
+  </.form>
+
+  <:footer>
+    <p class="zaq-text-caption uppercase" style="color: var(--zaq-text-color-body-tertiary)">
+      ZAQ Back Office &copy; {Date.utc_today().year} |
+      <DSLink.nav_link destination="https://zaq.ai" tone={:accent} external={true} size={:sm}>
+        zaq.ai
+      </DSLink.nav_link>
+    </p>
+  </:footer>
+</AuthLayout.auth_layout>
