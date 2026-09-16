@@ -31,7 +31,7 @@ defmodule ZaqWeb.Components.DesignSystem.SecretInput do
   attr :id, :any, default: nil
   attr :name, :any
   attr :label, :string, default: nil
-  attr :value, :any
+  attr :value, :any, default: nil
 
   attr :field, Phoenix.HTML.FormField,
     doc: "a form field struct retrieved from the form, for example: @form[:password]"
