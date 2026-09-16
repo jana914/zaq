@@ -5,7 +5,7 @@ defmodule Storybook.Components.Forms.Input do
 
   def description,
     do:
-      "Labelled form input (ZAQ tokens): text-like types, textarea, and validation errors. Boolean fields: Checkbox. Dropdowns: Select / SearchableSelect. Sensitive fields: SecretInput."
+      "Labelled form input (ZAQ tokens): text-like types, textarea, validation errors, and info/success/error hints. Boolean fields: Checkbox. Dropdowns: Select / SearchableSelect. Sensitive fields: SecretInput."
 
   def variations do
     [
@@ -55,6 +55,35 @@ defmodule Storybook.Components.Forms.Input do
               value: "",
               placeholder: "Tell us about yourself…",
               rows: "4"
+            }
+          }
+        ]
+      },
+      %VariationGroup{
+        id: :hints,
+        description: "Field hints (shown when there are no validation errors)",
+        variations: [
+          %Variation{
+            id: :hint_info,
+            description: "Info hint",
+            attributes: %{
+              name: "username",
+              label: "Username",
+              value: "admin",
+              hint: "Your login name is case-sensitive.",
+              hint_tone: :info
+            }
+          },
+          %Variation{
+            id: :hint_success,
+            description: "Success hint",
+            attributes: %{
+              name: "email",
+              type: "email",
+              label: "Email",
+              value: "you@example.com",
+              hint: "Email looks good.",
+              hint_tone: :success
             }
           }
         ]

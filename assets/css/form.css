@@ -56,6 +56,61 @@
   align-items: center;
   gap: var(--zaq-scale-8);
   margin-top: var(--zaq-scale-8);
+  color: var(--zaq-text-color-body-danger);
+}
+
+/* Password policy checklist — PasswordPolicyComponents.password_requirements/1 */
+.zaq-password-requirements {
+  margin-top: var(--zaq-layout-stack-gap);
+  padding: var(--zaq-scale-8) var(--zaq-scale-16);
+  border-radius: var(--zaq-card-radius-default);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+  background-color: var(--zaq-surface-color-raised);
+}
+
+.zaq-password-requirements__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zaq-layout-stack-gap-tight);
+  margin-top: var(--zaq-layout-stack-gap-tight);
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.zaq-password-requirements__row {
+  display: flex;
+  align-items: center;
+  gap: var(--zaq-layout-inline-gap);
+  transition: color 0.15s ease;
+}
+
+.zaq-password-requirements__row--met {
+  color: var(--zaq-text-color-body-success);
+}
+
+.zaq-password-requirements__row--unmet {
+  color: var(--zaq-text-color-body-danger);
+}
+
+/* Optional hint below controls — DesignSystem.FieldHint (info / success / error) */
+.zaq-field-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--zaq-scale-8);
+  margin-top: var(--zaq-scale-8);
+}
+
+.zaq-field-hint--info {
+  color: var(--zaq-text-color-body-tertiary);
+}
+
+.zaq-field-hint--success {
+  color: var(--zaq-text-color-body-success);
+}
+
+.zaq-field-hint--error {
+  color: var(--zaq-text-color-body-danger);
 }
 
 /* ── Shared painted shell: native <select>, text inputs, combobox triggers ─── */

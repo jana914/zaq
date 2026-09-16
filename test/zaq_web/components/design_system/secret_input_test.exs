@@ -47,6 +47,23 @@ defmodule ZaqWeb.Components.DesignSystem.SecretInputTest do
     assert html =~ "zaq-control-secret-toggle"
   end
 
+  test "secret_input/1 renders success hint when no errors" do
+    html =
+      render_component(&SecretInput.secret_input/1,
+        id: "password-confirmation",
+        name: "password_confirmation",
+        label: "Confirm Password",
+        value: "x",
+        hint: "Passwords match",
+        hint_tone: :success,
+        hint_id: "password-confirmation-status"
+      )
+
+    assert html =~ ~s(id="password-confirmation-status")
+    assert html =~ "Passwords match"
+    assert html =~ "zaq-field-hint--success"
+  end
+
   test "secret_input/1 supports form field and renders field errors" do
     form =
       Phoenix.Component.to_form(

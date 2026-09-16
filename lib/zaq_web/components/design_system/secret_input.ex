@@ -8,8 +8,11 @@ defmodule ZaqWeb.Components.DesignSystem.SecretInput do
 
   use Phoenix.Component
 
+  use ZaqWeb.Components.DesignSystem.FieldControlAttrs
+
   import ZaqWeb.CoreComponents, only: [icon: 1]
 
+  alias ZaqWeb.Components.DesignSystem.FieldHint
   alias ZaqWeb.Components.FormFieldHelpers
   alias ZaqWeb.Components.FormInputIds
 
@@ -37,6 +40,7 @@ defmodule ZaqWeb.Components.DesignSystem.SecretInput do
     doc: "a form field struct retrieved from the form, for example: @form[:password]"
 
   attr :errors, :list, default: []
+
   attr :input_class, :any, default: nil
   attr :error_class, :any, default: nil
   attr :button_class, :any, default: nil
@@ -87,19 +91,13 @@ defmodule ZaqWeb.Components.DesignSystem.SecretInput do
           <.icon name="hero-eye-slash" class="eye-off hidden zaq-control-secret-toggle-icon" />
         </button>
       </div>
-      <.field_error :for={msg <- @errors}>{msg}</.field_error>
+      <FieldHint.field_messages
+        errors={@errors}
+        hint={@hint}
+        hint_tone={@hint_tone}
+        hint_id={@hint_id}
+      />
     </div>
-    """
-  end
-
-  slot :inner_block, required: true
-
-  defp field_error(assigns) do
-    ~H"""
-    <p class="zaq-field-error zaq-text-body-sm" style="color: var(--zaq-text-color-body-danger)">
-      <.icon name="hero-exclamation-circle" class="size-5" />
-      {render_slot(@inner_block)}
-    </p>
     """
   end
 

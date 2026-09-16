@@ -24,4 +24,22 @@ defmodule ZaqWeb.Helpers.PasswordHelpers do
     |> assign(:password_confirmation_touched?, confirmation != "")
     |> assign(:passwords_match?, confirmation != "" and password == confirmation)
   end
+
+  @doc "Hint copy for confirm-password field on `SecretInput` (`nil` when not touched)."
+  def confirmation_hint_text(touched?, passwords_match?) do
+    cond do
+      not touched? -> nil
+      passwords_match? -> "Passwords match"
+      true -> "Passwords do not match"
+    end
+  end
+
+  @doc "Hint tone for confirm-password field (`:info` when hidden)."
+  def confirmation_hint_tone(touched?, passwords_match?) do
+    cond do
+      not touched? -> :info
+      passwords_match? -> :success
+      true -> :error
+    end
+  end
 end
