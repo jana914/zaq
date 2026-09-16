@@ -18,6 +18,19 @@ defmodule Storybook.Components.Table.EmptyState do
       <.demo label="Teams tab (from /bo/people)">
         <.empty_state title="No teams yet." hint={"Click \"New Team\" to add one."} />
       </.demo>
+      <.demo label="Password reset sent (from /bo/forgot-password)">
+        <.empty_state variant={:success} title="Check your inbox">
+          <:details>
+            If an account with that email exists, we've sent a password reset link.
+            The link is valid for <strong>1 hour</strong>.
+          </:details>
+          <:action>
+            <span class="zaq-text-body-sm" style="color: var(--zaq-text-color-body-accent);">
+              Back to Sign In
+            </span>
+          </:action>
+        </.empty_state>
+      </.demo>
     </div>
     """
   end

@@ -3,6 +3,11 @@ defmodule ZaqWeb.Live.BO.System.ForgotPasswordLive do
 
   alias Zaq.Accounts
   alias Zaq.Engine.Notifications.PasswordResetEmail
+  alias ZaqWeb.Components.DesignSystem.AuthLayout
+  alias ZaqWeb.Components.DesignSystem.Button, as: DSButton
+  alias ZaqWeb.Components.DesignSystem.EmptyState
+  alias ZaqWeb.Components.DesignSystem.Input, as: DSInput
+  alias ZaqWeb.Components.DesignSystem.Link, as: DSLink
 
   def mount(_params, _session, socket) do
     {:ok,

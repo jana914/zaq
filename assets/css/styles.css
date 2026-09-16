@@ -662,10 +662,141 @@ html[data-theme="dark"] .zaq-toggle-group-pill > button:nth-of-type(3) {
   padding-block: var(--zaq-scale-8);
 }
 
+.zaq-feedback-banner--shake {
+  animation: zaq-auth-shake 0.2s ease-in-out 0s 2;
+}
+
+@keyframes zaq-auth-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* BO auth pages — login, forgot-password (AuthLayout shell) */
+.zaq-auth-page {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--zaq-surface-color-base);
+}
+
+.zaq-auth-page-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--zaq-color-black-300) 100%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: var(--zaq-scale-24) var(--zaq-scale-24);
+}
+
+.zaq-auth-shell {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 25rem;
+  margin-inline: var(--zaq-scale-24);
+}
+
+.zaq-auth-card {
+  overflow: hidden;
+  border-radius: var(--zaq-card-radius-default);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+  background-color: var(--zaq-surface-color-raised);
+}
+
+.zaq-auth-card-header {
+  padding: var(--zaq-scale-32);
+  text-align: center;
+  background-color: var(--zaq-surface-color-base);
+}
+
+.zaq-auth-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zaq-scale-64);
+  height: var(--zaq-scale-64);
+  margin-bottom: var(--zaq-scale-16);
+  border-radius: var(--zaq-card-radius-default);
+  background: var(--zaq-surface-color-raised);
+  backdrop-filter: blur(4px);
+  border: var(--zaq-border-thickness-default) solid var(--zaq-border-color-default);
+}
+
+.zaq-auth-logo-img {
+  width: var(--zaq-scale-40);
+  height: auto;
+}
+
+.zaq-auth-header-icon {
+  width: var(--zaq-scale-32);
+  height: var(--zaq-scale-32);
+  color: var(--zaq-text-color-body-accent);
+}
+
+.zaq-auth-card-subtitle {
+  margin-top: var(--zaq-scale-8);
+  letter-spacing: 0.2em;
+}
+
+.zaq-auth-card-body {
+  padding: var(--zaq-scale-32);
+}
+
+.zaq-auth-card-footer {
+  margin-top: var(--zaq-scale-32);
+  text-align: center;
+}
+
+.zaq-auth-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.zaq-auth-intro {
+  margin-bottom: var(--zaq-scale-24);
+}
+
+.zaq-auth-back-link-row {
+  margin-top: var(--zaq-scale-24);
+  text-align: center;
+}
+
 /* Centered empty-list message — DesignSystem.EmptyState */
 .zaq-empty-state {
   padding-block: var(--zaq-scale-64);
   text-align: center;
+}
+
+/* Success confirmation — DesignSystem.EmptyState variant={:success} */
+.zaq-empty-state--success {
+  padding-block: var(--zaq-scale-16);
+}
+
+.zaq-empty-state-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zaq-scale-56);
+  height: var(--zaq-scale-56);
+  margin-inline: auto;
+  margin-bottom: var(--zaq-scale-16);
+  border-radius: var(--zaq-scale-999);
+  background: var(--zaq-surface-color-success);
+  border: var(--zaq-border-color-success) solid var(--zaq-border-thickness-default);
+  color: var(--zaq-text-color-body-success);
+}
+
+.zaq-empty-state-success-icon > svg {
+  width: var(--zaq-scale-24);
+  height: var(--zaq-scale-24);
 }
 
 /* ── Ingestion chrome band (shared by `IngestionVolumeSelector`, `IngestionFileBrowserHeader`)
