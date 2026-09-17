@@ -1,6 +1,6 @@
 defmodule ZaqWeb.Components.DesignSystem.AuthLayout do
   @moduledoc """
-  Centered auth page shell for BO login and password-reset flows.
+  Centered auth page shell for BO and People sign-in and password-reset flows.
 
   Provides the full-viewport layout, card chrome, and brand header band.
   Page-specific content goes in `:inner_block`; optional `:footer` for copyright.
